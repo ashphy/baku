@@ -1,13 +1,8 @@
-require_relative '../../bin/irc_logger'
-
 namespace :irc do
 
-  desc "Generate report"
+  desc "Run IRC Logger"
 
   task :log => :environment do
-    # 処理を記述
-    #ReportGenerator.generate
-    puts 'log'
-    IRCLogger.new
+    require_relative '../../bin/irc_logger'
   end
 end

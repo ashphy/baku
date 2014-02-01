@@ -1,6 +1,7 @@
 class CreateMessages < ActiveRecord::Migration
   def change
     create_table :messages, options: 'ENGINE=mroonga DEFAULT CHARSET=utf8' do |t|
+      t.belongs_to :channel
       t.string :text, :limit => 512
       t.string :user, :limit => 10
       t.string :command

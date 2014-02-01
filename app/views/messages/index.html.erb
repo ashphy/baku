@@ -3,6 +3,7 @@
 <table>
   <thead>
     <tr>
+      <th>Channel</th>
       <th>Text</th>
       <th>User</th>
       <th>Command</th>
@@ -15,6 +16,7 @@
   <tbody>
     <% @messages.each do |message| %>
       <tr>
+        <td><%= message.channel_id %></td>
         <td><%= message.text %></td>
         <td><%= message.user %></td>
         <td><%= message.command %></td>

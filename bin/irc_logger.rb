@@ -1,38 +1,26 @@
 require 'cinch'
 
 class IRCLogger
-  def initialize
-    p 'IRC Bot initilized'
-
+  def initialize(server)
     bot = Cinch::Bot.new do
       configure do |c|
-        c.server = "irc.livedoor.ne.jp"
-        c.nick   = "baku_bot"
-        c.channels = ["#pd2013"]
-        c.encoding = "iso-2022-jp"
+        c.server = server.host
+        c.nick   = 'baku_bot'
+        c.channels = server.channels.pluck(:name)
+        c.encoding = server.encoding
       end
 
       on :message, /.*/ do |m, channel|
-        p m
-        p channel
-        p ''
-
-        message = Message.new(user: m.user.nick, text: m.message, command: command)
+        channel = Channel.find_by(name: m.channel.name)
+        message = Message.new(channel_id: channel.id, user: m.user.nick, text: m.message, command: m.command)
         message.save!
-      end
-
-      # 律儀に出て行ってくれる君
-      on :message, /go away(?: (.+))?/ do |m, channel|
-        m.reply "#{m.user.nick} said #{m.message}. ok, I'm parting." if m.user.nick == 'masasuzu'
-
-        channel ||= m.channel
-
-        bot.part channel, 'bye'
       end
     end
 
-    p 'IRC Bot started'
     bot.start
   end
 end
 
+Server.all.find_each do |server|
+  IRCLogger.new(server)
+end

@@ -11,9 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140201132757) do
+ActiveRecord::Schema.define(version: 20140201150999) do
+
+  create_table "channels", force: true do |t|
+    t.integer  "server_id"
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "messages", force: true do |t|
+    t.integer  "channel_id"
     t.string   "text",       limit: 512
     t.string   "user",       limit: 10
     t.string   "command"
@@ -22,5 +30,12 @@ ActiveRecord::Schema.define(version: 20140201132757) do
   end
 
   add_index "messages", ["created_at"], name: "index_messages_on_created_at", using: :btree
+
+  create_table "servers", force: true do |t|
+    t.string   "host"
+    t.string   "encoding"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
 end
