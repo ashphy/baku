@@ -1,5 +1,16 @@
 <h1>Listing messages</h1>
 
+<%= search_form_for @q do |f| %>
+    <div class="control-group">
+      <%= f.label :name_cont %>
+      <div class="controls">
+        <%= f.text_field :text_cont %>
+      </div>
+    </div>
+
+    <%= f.submit %>
+<% end %>
+
 <table>
   <thead>
     <tr>
