@@ -6,7 +6,7 @@ class IRCLogger
       configure do |c|
         c.server = server.host
         c.nick   = 'baku_bot'
-        c.channels = server.channels.pluck(:name)
+        c.channels = server.channels.where(joined: true).pluck(:name)
         c.encoding = server.encoding
       end
 

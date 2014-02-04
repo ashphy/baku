@@ -11,13 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140201150999) do
+ActiveRecord::Schema.define(version: 20140204131458) do
 
   create_table "channels", force: true do |t|
     t.integer  "server_id"
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "joined",     default: true, null: false
   end
 
   create_table "messages", force: true do |t|
