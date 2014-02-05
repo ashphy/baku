@@ -12,11 +12,21 @@ class IRCLogger
         c.encoding = server.encoding
       end
 
-      on :message, /.*/ do |m, channel|
+      on :message do |m|
         ActiveRecord::Base.connection_pool.with_connection do
           channel = Channel.find_by(name: m.channel.name)
           message = Message.new(channel_id: channel.id, user: m.user.nick, text: m.message, command: m.command)
-          message.save!
+          message.save
+        end
+      end
+
+      on :channel do |m|
+        if m.params.size == 2
+          ActiveRecord::Base.connection_pool.with_connection do
+            channel = Channel.find_by(name: m.channel.name)
+            message = Message.new(channel_id: channel.id, user: m.user.nick, text: m.params[1], command: 'NOTICE')
+            message.save
+          end
         end
       end
     end
