@@ -1,4 +1,6 @@
-require 'cinch'
+#!/usr/bin/env ruby
+require File.expand_path('../../config/application', __FILE__)
+Rails.application.require_environment!
 
 class IRCLogger
   def initialize(server)
@@ -21,6 +23,23 @@ class IRCLogger
   end
 end
 
-Server.all.find_each do |server|
-  IRCLogger.new(server)
+class ResqueWorkerDaemon < DaemonSpawn::Base
+  def start(args)
+    Server.all.find_each do |server|
+      @irc_logger = IRCLogger.new(server)
+    end
+  end
+
+  def stop
+  end
 end
+
+ResqueWorkerDaemon.spawn!({
+  :processes => 1,
+  :working_dir => Rails.root,
+  :pid_file => File.join(Rails.root, 'tmp', 'pids', 'baku_irc_logger.pid'),
+  :log_file => File.join(Rails.root, 'log', 'baku_irc_logger.log'),
+  :sync_log => true,
+  :singleton => true,
+  :signal => 'QUIT'
+})

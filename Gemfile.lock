@@ -36,6 +36,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.7.0)
+    daemon-spawn (0.4.2)
     diff-lcs (1.2.5)
     erubis (2.7.0)
     execjs (2.0.2)
@@ -130,6 +131,7 @@ PLATFORMS
 DEPENDENCIES
   cinch
   coffee-rails (~> 4.0.0)
+  daemon-spawn
   jbuilder (~> 1.2)
   jquery-rails
   mysql2

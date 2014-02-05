@@ -31,6 +31,8 @@ gem 'cinch'
 
 gem 'ransack'
 
+gem 'daemon-spawn', :require => 'daemon_spawn'
+
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
