@@ -13,9 +13,11 @@ class IRCLogger
       end
 
       on :message, /.*/ do |m, channel|
-        channel = Channel.find_by(name: m.channel.name)
-        message = Message.new(channel_id: channel.id, user: m.user.nick, text: m.message, command: m.command)
-        message.save!
+        ActiveRecord::Base.connection_pool.with_connection do
+          channel = Channel.find_by(name: m.channel.name)
+          message = Message.new(channel_id: channel.id, user: m.user.nick, text: m.message, command: m.command)
+          message.save!
+        end
       end
     end
 
@@ -25,8 +27,10 @@ end
 
 class ResqueWorkerDaemon < DaemonSpawn::Base
   def start(args)
-    Server.all.find_each do |server|
-      @irc_logger = IRCLogger.new(server)
+    ActiveRecord::Base.connection_pool.with_connection do
+      Server.all.find_each do |server|
+        @irc_logger = IRCLogger.new(server)
+      end
     end
   end
 
