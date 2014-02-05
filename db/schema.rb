@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140204131458) do
+ActiveRecord::Schema.define(version: 20140205134619) do
 
   create_table "channels", force: true do |t|
     t.integer  "server_id"
@@ -24,7 +24,7 @@ ActiveRecord::Schema.define(version: 20140204131458) do
   create_table "messages", force: true do |t|
     t.integer  "channel_id"
     t.string   "text",       limit: 512
-    t.string   "user",       limit: 10
+    t.string   "user",       limit: 20,  null: false
     t.string   "command"
     t.datetime "created_at"
     t.datetime "updated_at"
