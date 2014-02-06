@@ -33,7 +33,7 @@
     <% @messages.each do |message| %>
       <tr>
         <td><%= message.created_at %></td>
-        <td><%= message.channel_id %></td>
+        <td><%= message.channel.name %></td>
         <td><%= message.text %></td>
         <td><%= message.user %></td>
         <td><%= message.command %></td>
