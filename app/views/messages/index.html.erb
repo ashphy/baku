@@ -8,7 +8,7 @@
       </div>
     </div>
 
-    <%= f.select :channel_id_eq, options_from_collection_for_select(Channel.all, "id", "name", @q.channel_id_eq) %>
+    <%= f.select :channel_id_eq, options_from_collection_for_select(Channel.all, "id", "name", @q.channel_id_eq), include_blank: true %>
     <%= f.date_select :created_at_gteq, include_blank: true %>〜
     <%= f.date_select :created_at_lteq, include_blank: true %>
 
