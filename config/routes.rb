@@ -1,4 +1,5 @@
 Baku::Application.routes.draw do
+  devise_for :users
   resources :channels
 
   resources :servers

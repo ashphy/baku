@@ -53,15 +53,30 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav">
-            <li><%= link_to "Servers", :controller => "servers"  %></li>
-            <li><%= link_to "Channels", :controller => "channels"  %></li>
-            <li><%= link_to "Messages", :controller => "messages"  %></li>
+            <li><%= link_to "Servers", :controller => "/servers"  %></li>
+            <li><%= link_to "Channels", :controller => "/channels"  %></li>
+            <li><%= link_to "Messages", :controller => "/messages"  %></li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <% if current_user %>
+              <li><%= link_to "Logged in as #{current_user.email}", destroy_user_session_path, :method => :delete %></li>
+            <% else %>
+              <li><%= link_to "Login", new_user_session_path %></li>
+            <% end %>
           </ul>
         </div><!-- /.navbar-collapse -->
       </div><!-- /.container-fluid -->
     </nav>
 
     <div class="container">
+        <div>
+          <% if notice %>
+              <p class="alert alert-notice"><%= notice %></p>
+          <% end %>
+          <% if alert %>
+              <p class="alert alert-error"><%= alert %></p>
+          <% end %>
+        </div>
         <div>
           <%= yield %>
         </div>
