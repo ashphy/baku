@@ -34,7 +34,6 @@ gem 'ransack'
 gem 'daemon-spawn', :require => 'daemon_spawn'
 
 gem 'less-rails'
-gem "twitter-bootstrap-rails"
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.

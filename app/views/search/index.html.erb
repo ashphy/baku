@@ -1,4 +1,14 @@
-<h1>Search Result</h1>
+<div class="jumbotron">
+<h1>Share all knowledge, devour it.</h1>
+    <%= search_form_for @q, :url => {:controller => 'search', :action => 'index'}, html: {class: "row", role: "form"} do |f| %>
+      <div class="form-group col-sm-10">
+        <%= f.label :name_cont, class: "sr-only" %>
+        <%= f.text_field :text_cont, class: "form-control", placeholder: "What are you looking for?" %>
+      </div>
+      <button type="submit" class="btn btn-default col-sm-2">Search</button>
+    <% end %>
+</div>
+
 <table class="table">
   <thead>
     <tr>

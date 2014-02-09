@@ -4,6 +4,8 @@ class MessagesController < ApplicationController
   # GET /messages
   # GET /messages.json
   def index
+    p params
+
     # 検索フォームの入力内容で検索する
     @q = Message.search(params[:q])
 
