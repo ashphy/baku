@@ -1,36 +1,42 @@
-<div class="jumbotron">
-<h1>Share all knowledge, devour it.</h1>
-    <%= search_form_for @q, :url => {:controller => 'search', :action => 'index'}, html: {class: "row", role: "form"} do |f| %>
+<% if @messages.nil? %>
+  <div class="jumbotron">
+    <h1>Share all knowledge, devour it.</h1>
+    <%= form_tag('/search', :method => :get) do %>
       <div class="form-group col-sm-10">
-        <%= f.label :name_cont, class: "sr-only" %>
-        <%= f.text_field :text_cont, class: "form-control", placeholder: "What are you looking for?" %>
+        <label class="sr-only" for="q">Name contains</label>
+        <input class="form-control" id="q" name="q" placeholder="What are you looking for?" type="text" />
       </div>
       <button type="submit" class="btn btn-default col-sm-2">Search</button>
     <% end %>
-</div>
+  </div>
+<% else %>
+  <%= form_tag('/search', :method => :get) do %>
+    <div class="form-group col-sm-10">
+      <label class="sr-only" for="q">Name contains</label>
+      <input class="form-control" id="q" name="q" placeholder="What are you looking for?" type="text" value="<%= @q %>" />
+    </div>
+    <button type="submit" class="btn btn-default col-sm-2">Search</button>
+  <% end %>
 
-<table class="table">
-  <thead>
-    <tr>
-      <th>Date</th>
-      <th>Channel</th>
-      <th>User</th>
-      <th>Text</th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @messages.each do |message| %>
+  <table class="table">
+    <thead>
       <tr>
-        <td style="width: 200px"><%= link_to message.created_at, message %></td>
-        <td><%= message.channel.name %></td>
-        <td><%= message.user %></td>
-        <td class="<%= 'text-muted' if message.command == "NOTICE" %>"><%= message.text %></td>
+        <th>Date</th>
+        <th>Channel</th>
+        <th>User</th>
+        <th>Text</th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
 
-<br>
-
-<%= link_to 'New Message', new_message_path %>
+    <tbody>
+      <% @messages.each do |message| %>
+        <tr>
+          <td style="width: 200px"><%= link_to message.created_at, message %></td>
+          <td><%= message.channel.name %></td>
+          <td><%= message.user %></td>
+          <td class="<%= 'text-muted' if message.command == "NOTICE" %>"><%= message.text %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>

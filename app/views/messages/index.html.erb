@@ -14,17 +14,19 @@
   </thead>
 
   <tbody>
-    <% @messages.each do |message| %>
-      <tr>
-        <td style="width: 200px"><%= message.created_at %></td>
-        <td><%= message.channel.name %></td>
-        <td><%= message.text %></td>
-        <td><%= message.user %></td>
-        <td><%= message.command %></td>
-        <td><%= link_to 'Show', message %></td>
-        <td><%= link_to 'Edit', edit_message_path(message) %></td>
-        <td><%= link_to 'Destroy', message, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+    <% if @messages.present? %>
+      <% @messages.each do |message| %>
+        <tr>
+          <td style="width: 200px"><%= message.created_at %></td>
+          <td><%= message.channel.name %></td>
+          <td><%= message.text %></td>
+          <td><%= message.user %></td>
+          <td><%= message.command %></td>
+          <td><%= link_to 'Show', message %></td>
+          <td><%= link_to 'Edit', edit_message_path(message) %></td>
+          <td><%= link_to 'Destroy', message, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
     <% end %>
   </tbody>
 </table>
