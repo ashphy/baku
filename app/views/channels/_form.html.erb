@@ -17,7 +17,7 @@
   </div>
   <div class="field">
     <%= f.label :server_id %><br>
-    <%= f.number_field :server_id %>
+    <%= f.collection_select :server_id, Server.all, :id, :host %>
   </div>
   <div class="field">
     <%= f.label :joined %><br>

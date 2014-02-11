@@ -16,7 +16,7 @@
     <% @channels.each do |channel| %>
       <tr>
         <td><%= channel.name %></td>
-        <td><%= channel.server_id %></td>
+        <td><%= channel.server.host %></td>
         <td><%= channel.joined %></td>
         <td><%= link_to 'Show', channel %></td>
         <td><%= link_to 'Edit', edit_channel_path(channel) %></td>
