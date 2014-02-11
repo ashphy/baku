@@ -59,7 +59,7 @@
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <% if current_user %>
-              <li><%= link_to "Logged in as #{current_user.email}", destroy_user_session_path, :method => :delete %></li>
+              <li><%= link_to "Logged in as #{current_user.username}", destroy_user_session_path, :method => :delete %></li>
             <% else %>
               <li><%= link_to "Login", new_user_session_path %></li>
             <% end %>

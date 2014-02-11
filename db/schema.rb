@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140209152939) do
+ActiveRecord::Schema.define(version: 20140211075555) do
 
   create_table "channels", force: true do |t|
     t.integer  "server_id"
@@ -20,6 +20,8 @@ ActiveRecord::Schema.define(version: 20140209152939) do
     t.datetime "updated_at"
     t.boolean  "joined",     default: true, null: false
   end
+
+  add_index "channels", ["name"], name: "index_channels_on_name", unique: true, using: :btree
 
   create_table "messages", force: true do |t|
     t.integer  "channel_id"
@@ -52,9 +54,11 @@ ActiveRecord::Schema.define(version: 20140209152939) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "username",                            null: false
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+  add_index "users", ["username"], name: "index_users_on_username", unique: true, using: :btree
 
 end
