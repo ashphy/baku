@@ -52,18 +52,21 @@
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-          <ul class="nav navbar-nav">
-            <li><%= link_to "Servers", :controller => "/servers"  %></li>
-            <li><%= link_to "Channels", :controller => "/channels"  %></li>
-            <li><%= link_to "Messages", :controller => "/messages"  %></li>
-          </ul>
-          <ul class="nav navbar-nav navbar-right">
-            <% if current_user %>
-              <li><%= link_to "Logged in as #{current_user.username}", destroy_user_session_path, :method => :delete %></li>
-            <% else %>
+          <% if current_user %>
+            <ul class="nav navbar-nav">
+              <li><%= link_to "Servers", :controller => "/servers"  %></li>
+              <li><%= link_to "Channels", :controller => "/channels"  %></li>
+              <li><%= link_to "Messages", :controller => "/messages"  %></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <p class="navbar-text"><span class="glyphicon glyphicon-user"></span> <%= current_user.username %></p>
+                <li><%= link_to "Logout", destroy_user_session_path, :method => :delete %></li>
+            </ul>
+          <% else %>
+            <ul class="nav navbar-nav navbar-right">
               <li><%= link_to "Login", new_user_session_path %></li>
-            <% end %>
-          </ul>
+            </ul>
+          <% end %>
         </div><!-- /.navbar-collapse -->
       </div><!-- /.container-fluid -->
     </nav>
