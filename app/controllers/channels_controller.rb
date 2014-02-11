@@ -1,11 +1,33 @@
 class ChannelsController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: [:index]
   before_action :set_channel, only: [:show, :edit, :update, :destroy]
 
   # GET /channels
   # GET /channels.json
   def index
     @channels = Channel.all
+
+    if params[:id].present?
+      @channel = params[:id]
+      @years = Message.uniq.pluck("EXTRACT(YEAR FROM created_at)")
+    end
+
+    if params[:year].present?
+      @year = params[:year]
+      @months = Message.uniq.pluck("EXTRACT(MONTH FROM created_at)")
+    end
+
+    if params[:month].present?
+      @month = params[:month]
+      @days = Message.uniq.pluck("EXTRACT(DAY FROM created_at)")
+    end
+
+    if params[:day].present?
+      @day = params[:day]
+      @start = Date.new(@year.to_i, @month.to_i, @day.to_i).beginning_of_day
+      @end = Date.new(@year.to_i, @month.to_i, @day.to_i).end_of_day
+      @messages = Message.where(created_at: @start..@end)
+    end
   end
 
   # GET /channels/1

@@ -1,5 +1,7 @@
 Baku::Application.routes.draw do
   devise_for :users
+
+  match '/channels/:id(/:year)(/:month)(/:day)', :controller => 'channels', :action => 'index', :via => :get
   resources :channels
 
   resources :servers

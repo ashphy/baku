@@ -1,31 +1,44 @@
 <h1>Channels</h1>
 
-<table class="table">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Server</th>
-      <th>Join</th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @channels.each do |channel| %>
-      <tr>
-        <td><%= channel.name %></td>
-        <td><%= channel.server.host %></td>
-        <td><%= channel.joined %></td>
-        <td><%= link_to 'Show', channel %></td>
-        <td><%= link_to 'Edit', edit_channel_path(channel) %></td>
-        <td><%= link_to 'Destroy', channel, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Channel', new_channel_path %>
+  <div class="row">
+    <div class="col-md-2">
+      Channel
+      <ul>
+        <% @channels.each do |channel| %>
+          <li><%= link_to channel.name, {:controller => "channels", :action => "index", :id => channel.name_without_sign} %></li>
+        <% end %>
+      </ul>
+    </div>
+    <div class="col-md-1">
+      Year
+      <ul>
+        <% @years.each do |year| %>
+          <li><%= link_to year, {:controller => "channels", :action => "index", :id => @channel, :year => year} %></li>
+        <% end if @years.present? %>
+      </ul>
+    </div>
+    <div class="col-md-1">
+      Month
+      <ul>
+        <% @months.each do |month| %>
+          <li><%= link_to month, {:controller => "channels", :action => "index", :id => @channel, :year => @year, :month => month} %></li>
+        <% end if @months.present? %>
+      </ul>
+    </div>
+    <div class="col-md-1">
+      Day
+      <ul>
+        <% @days.each do |day| %>
+          <li><%= link_to day, {:controller => "channels", :action => "index", :id => @channel, :year => @year, :month => @month, :day => day} %></li>
+        <% end if @days.present? %>
+      </ul>
+    </div>
+    <div class="col-md-7">
+      Messages
+      <ul>
+        <% @messages.each do |mes| %>
+          <li><%= mes.text %></li>
+        <% end if @messages.present? %>
+      </ul>
+    </div>
+  </div>

@@ -55,7 +55,6 @@
           <% if current_user %>
             <ul class="nav navbar-nav">
               <li><%= link_to "Servers", :controller => "/servers"  %></li>
-              <li><%= link_to "Channels", :controller => "/channels"  %></li>
               <li><%= link_to "Messages", :controller => "/messages"  %></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
@@ -63,6 +62,9 @@
                 <li><%= link_to "Logout", destroy_user_session_path, :method => :delete %></li>
             </ul>
           <% else %>
+            <ul class="nav navbar-nav">
+              <li><%= link_to "Channels", :controller => "/channels"  %></li>
+            </ul>
             <ul class="nav navbar-nav navbar-right">
               <li><%= link_to "Login", new_user_session_path %></li>
             </ul>
