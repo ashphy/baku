@@ -72,14 +72,12 @@
     </nav>
 
     <div class="container">
-        <div>
-          <% if notice %>
-              <p class="alert alert-notice"><%= notice %></p>
-          <% end %>
-          <% if alert %>
-              <p class="alert alert-error"><%= alert %></p>
-          <% end %>
-        </div>
+        <% if notice %>
+          <div class="alert alert-success"><%= notice %></div>
+        <% end %>
+        <% if alert %>
+          <div class="alert alert-danger"><%= alert %></div>
+        <% end %>
         <div>
           <%= yield %>
         </div>
