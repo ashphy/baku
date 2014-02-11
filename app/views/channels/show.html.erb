@@ -10,5 +10,10 @@
   <%= @channel.server_id %>
 </p>
 
+<p>
+  <strong>Join:</strong>
+  <%= @channel.joined %>
+</p>
+
 <%= link_to 'Edit', edit_channel_path(@channel) %> |
 <%= link_to 'Back', channels_path %>
