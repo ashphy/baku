@@ -1,13 +1,15 @@
 <% if @messages.nil? %>
   <div class="jumbotron">
-    <h1>Share all knowledge, devour it.</h1>
-    <%= form_tag('/search', :method => :get) do %>
-      <div class="form-group col-sm-10">
-        <label class="sr-only" for="q">Name contains</label>
-        <input class="form-control" id="q" name="q" placeholder="What are you looking for?" type="text" />
-      </div>
-      <button type="submit" class="btn btn-default col-sm-2">Search</button>
-    <% end %>
+    <div class="container">
+      <h1>Share all knowledge, devour it.</h1>
+      <%= form_tag('/search', :method => :get) do %>
+        <div class="form-group col-sm-10">
+          <label class="sr-only" for="q">Name contains</label>
+          <input class="form-control" id="q" name="q" placeholder="What are you looking for?" type="text" />
+        </div>
+        <button type="submit" class="btn btn-default col-sm-2">Search</button>
+      <% end %>
+    </div>
   </div>
 <% else %>
   <%= form_tag('/search', :method => :get) do %>
