@@ -29,6 +29,7 @@ GEM
     atomic (1.1.14)
     bcrypt-ruby (3.1.2)
     builder (3.1.4)
+    callsite (0.0.11)
     cinch (2.0.12)
     coffee-rails (4.0.1)
       coffee-script (>= 2.2.0)
@@ -66,6 +67,10 @@ GEM
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
+    meta_request (0.2.8)
+      callsite
+      rack-contrib
+      railties
     mime-types (1.25.1)
     minitest (4.7.5)
     multi_json (1.8.4)
@@ -75,6 +80,8 @@ GEM
       activerecord (>= 3.0)
     polyglot (0.3.3)
     rack (1.5.2)
+    rack-contrib (1.1.0)
+      rack (>= 0.9.1)
     rack-test (0.6.2)
       rack (>= 1.0)
     rails (4.0.2)
@@ -157,6 +164,7 @@ DEPENDENCIES
   jbuilder (~> 1.2)
   jquery-rails
   less-rails
+  meta_request
   mysql2
   rails (= 4.0.2)
   ransack
