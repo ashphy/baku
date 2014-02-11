@@ -1,19 +1,16 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Text:</strong>
-  <%= @message.text %>
-</p>
+<div class="well well-lg">
+  <p>
+    <span class="glyphicon glyphicon-user"></span> <%= @message.user %>
+    <%= @message.channel.name %>
+  </p>
 
-<p>
-  <strong>User:</strong>
-  <%= @message.user %>
-</p>
+  <p class="lead">
+    <%= @message.text %>
+  </p>
 
-<p>
-  <strong>Command:</strong>
-  <%= @message.command %>
-</p>
-
-<%= link_to 'Edit', edit_message_path(@message) %> |
-<%= link_to 'Back', messages_path %>
+  <p class="text-right">
+    <%= @message.created_at.to_s(:irc_detail) %>
+  </p>
+</div>
