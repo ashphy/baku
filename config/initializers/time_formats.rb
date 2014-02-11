@@ -1,0 +1,1 @@
+Time::DATE_FORMATS[:irc_search] = '%Y-%m-%d %H:%M'

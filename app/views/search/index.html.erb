@@ -31,7 +31,7 @@
     <tbody>
       <% @messages.each do |message| %>
         <tr>
-          <td style="width: 200px"><%= link_to message.created_at, message %></td>
+          <td style="width: 200px"><%= link_to message.created_at.to_s(:irc_search), message %></td>
           <td><%= message.channel.name %></td>
           <td><%= message.user %></td>
           <td class="<%= 'text-muted' if message.command == "NOTICE" %>"><%= message.text %></td>
