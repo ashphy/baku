@@ -1,3 +1,7 @@
+<% content_for :title do %>
+  <%= "Baku Search - #{@q}" %>
+<% end %>
+
 <% if @messages.nil? %>
   <div class="jumbotron">
     <div class="container">

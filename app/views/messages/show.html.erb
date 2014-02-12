@@ -1,3 +1,7 @@
+<% content_for :title do %>
+  <%= "#{@message.text} by #{@message.user} on #{@message.channel.name}: Baku" %>
+<% end %>
+
 <p id="notice"><%= notice %></p>
 
 <div class="well well-lg">
