@@ -29,6 +29,13 @@ class IRCLogger
           end
         end
       end
+
+      on :invite do |m|
+        ActiveRecord::Base.connection_pool.with_connection do
+          Channel.create_with(server_id: server.id).find_or_create_by(name: m.channel.name)
+        end
+        bot.join(m.channel.name)
+      end
     end
 
     bot.start
