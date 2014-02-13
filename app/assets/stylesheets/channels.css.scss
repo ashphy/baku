@@ -2,6 +2,70 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-ul li {
-  list-style-type: none;
+
+
+#log {
+  #channel {
+    width: 160px;
+    float: left;
+  }
+
+  #year {
+    width: 50px;
+    float: left;
+  }
+
+  #month {
+    width: 40px;
+    float: left;
+  }
+
+  #day {
+    width: 40px;
+    float: left;
+  }
+
+  #message {
+    width: 600px;
+    float: left;
+    padding-left: 20px;
+  }
+
+  #channel, #year, #month, #day {
+    ul {
+      margin-left: 0;
+      -webkit-padding-start: 0;
+    }
+
+    ul li {
+      list-style-type: none;
+      width: 100%;
+      height: 30px;
+
+      a {
+        padding-left: 10px;
+        display: block;
+        height: 30px;
+        text-decoration: none;
+        line-height: 30px;
+      }
+
+      a:hover {
+        background-color: #aec4de;
+        color: #222222;
+      }
+    }
+  }
+
+  #year, #month, #day {
+    li {
+      padding-left: 0;
+      text-align: center;
+    }
+  }
+
+  .active a {
+    background-color: #445588;
+    color: #f9f9f9;
+  }
 }
