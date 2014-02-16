@@ -15,6 +15,11 @@
   </p>
 
   <p class="text-right">
+    <span class="glyphicon glyphicon-list"></span>
+    <span>
+      <%= link_to 'Look at this surroundings', @message.surrounding_log_link_param %>
+    </span>
+    <span class="glyphicon glyphicon-time"></span>
     <%= @message.created_at.to_s(:irc_detail) %>
   </p>
 </div>

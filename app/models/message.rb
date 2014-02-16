@@ -10,4 +10,14 @@ class Message < ActiveRecord::Base
   validates_presence_of :command
   validates :command, :inclusion => ['PRIVMSG', 'NOTICE']
 
+  def surrounding_log_link_param
+    {
+      controller: 'channels',
+      action: 'index',
+      id: channel.name_without_sign,
+      year: channel.created_at.year,
+      month: channel.created_at.month,
+      day: channel.created_at.day
+    }
+  end
 end
