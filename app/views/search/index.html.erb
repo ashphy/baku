@@ -43,6 +43,13 @@
           <td class="<%= 'text-muted' if message.command == "NOTICE" %>"><%= message.text %></td>
         </tr>
       <% end %>
+      <% if @messages.empty? %>
+      <tr>
+        <td colspan="4">
+          <p class="text-warning">No Results Found</p>
+        </td>
+      </tr>
+      <% end %>
     </tbody>
   </table>
 <% end %>
