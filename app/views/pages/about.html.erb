@@ -1,0 +1,20 @@
+<h1>About Baku</h1>
+
+<p>
+  Baku is a IRC logger that has convenience Web UI and sophisticated search engine.
+</p>
+
+<h2>Usage</h2>
+<p>
+  If you want to log the channel, invite me 'baku_bot'.
+  If not, please kick me from the channel.
+</p>
+
+<h3>Where I am joining</h3>
+<div class="row">
+  <% Channel.joins.each do |channel| %>
+    <div class="col-md-3 channel">
+      <%= link_to channel.name, {:controller => "channels", :action => "index", :id => channel.name_without_sign} %>
+      <span class="badge"><%= channel.messages.count %></span></div>
+  <% end %>
+</div>

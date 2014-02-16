@@ -54,6 +54,7 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav">
             <li><%= link_to "Daily Logs", :controller => "/channels"  %></li>
+            <li><%= link_to "About", :controller => "/pages", :action => "about"  %></li>
             <% if current_user %>
               <li><%= link_to "Servers", :controller => "/servers"  %></li>
               <li><%= link_to "Messages", :controller => "/messages"  %></li>
