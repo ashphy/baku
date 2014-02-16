@@ -4,7 +4,8 @@ class SearchController < ApplicationController
   def index
     if params[:q].present?
       @q = params[:q]
-      @search = Message.search(text_cont: @q)
+      @queries = params[:q].split(/[[:blank:]]/)
+      @search = Message.search(text_cont_all: @queries)
       @messages = @search.result(distinct: true)
       @channels = Channel.all
     end
