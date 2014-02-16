@@ -5,7 +5,7 @@ class ChannelsController < ApplicationController
   # GET /channels
   # GET /channels.json
   def index
-    @channels = Channel.all
+    @channels = Channel.all.order(:name)
 
     if params[:id].present?
       @channel = params[:id]
