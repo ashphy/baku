@@ -4,7 +4,7 @@
       Channel
       <ul>
         <% @channels.each do |channel| %>
-          <li class="<%= 'active' if @channel == channel.name_without_sign %>">
+          <li class="<%= 'active' if @channel == channel %>">
             <%= link_to channel.name, {:controller => "channels", :action => "index", :id => channel.name_without_sign} %>
           </li>
         <% end %>
@@ -13,31 +13,31 @@
     <div id="year">
       Y
       <ul>
-        <% @years.each do |year| %>
+        <% @channel.years.each do |year| %>
           <li class="<%= 'active' if @year == year.to_s %>">
-            <%= link_to year, {:controller => "channels", :action => "index", :id => @channel, :year => year} %>
+            <%= link_to year, {:controller => "channels", :action => "index", :id => @channel.name_without_sign, :year => year} %>
           </li>
-        <% end if @years.present? %>
+        <% end if @channel.present? %>
       </ul>
     </div>
     <div id="month">
       M
       <ul>
-        <% @months.each do |month| %>
+        <% @channel.months.each do |month| %>
           <li class="<%= 'active' if @month == month.to_s %>">
-            <%= link_to month, {:controller => "channels", :action => "index", :id => @channel, :year => @year, :month => month} %>
+            <%= link_to month, {:controller => "channels", :action => "index", :id => @channel.name_without_sign, :year => @year, :month => month} %>
           </li>
-        <% end if @months.present? %>
+        <% end if @year.present? %>
       </ul>
     </div>
     <div id="day">
       D
       <ul>
-        <% @days.each do |day| %>
+        <% @channel.days.each do |day| %>
           <li class="<%= 'active' if @day == day.to_s %>">
-            <%= link_to day, {:controller => "channels", :action => "index", :id => @channel, :year => @year, :month => @month, :day => day} %>
+            <%= link_to day, {:controller => "channels", :action => "index", :id => @channel.name_without_sign, :year => @year, :month => @month, :day => day} %>
           </li>
-        <% end if @days.present? %>
+        <% end if @month.present? %>
       </ul>
     </div>
     <div id="message">

@@ -10,6 +10,8 @@ class Message < ActiveRecord::Base
   validates_presence_of :command
   validates :command, :inclusion => ['PRIVMSG', 'NOTICE']
 
+  scope :daily_log, -> (channel, date) { where(created_at: date.beginning_of_day..date.end_of_day).where(channel_id: channel.id) }
+
   def surrounding_log_link_param
     {
       controller: 'channels',

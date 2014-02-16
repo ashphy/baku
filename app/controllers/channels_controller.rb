@@ -8,26 +8,21 @@ class ChannelsController < ApplicationController
     @channels = Channel.all.order(:name)
 
     if params[:id].present?
-      @channel = params[:id]
-      @channel_id = Channel.where(name: "##{@channel}").first.id
-      @years = Message.where(channel_id: @channel_id).uniq.pluck("EXTRACT(YEAR FROM created_at)")
+      @channel = @channels.get_channel("##{params[:id]}")
     end
 
     if params[:year].present?
       @year = params[:year]
-      @months = Message.where(channel_id: @channel_id).uniq.pluck("EXTRACT(MONTH FROM created_at)")
     end
 
     if params[:month].present?
       @month = params[:month]
-      @days = Message.where(channel_id: @channel_id).uniq.pluck("EXTRACT(DAY FROM created_at)")
     end
 
     if params[:day].present?
       @day = params[:day]
-      @start = Date.new(@year.to_i, @month.to_i, @day.to_i).beginning_of_day
-      @end = Date.new(@year.to_i, @month.to_i, @day.to_i).end_of_day
-      @messages = Message.where(created_at: @start..@end).where(channel_id: @channel_id)
+      @date = Date.new(@year.to_i, @month.to_i, @day.to_i)
+      @messages = Message.daily_log(@channel, @date)
     end
   end
 
