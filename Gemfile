@@ -38,6 +38,7 @@ gem 'less-rails'
 gem 'devise'
 
 gem 'meta_request', group: :development
+gem 'rubocop', group: :development
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
