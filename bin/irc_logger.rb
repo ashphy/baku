@@ -20,6 +20,10 @@ class IRCLogger
         end
       end
 
+      on :message, "baku_bot cmd give me op" do |m|
+        m.channel.op(m.user)
+      end
+
       on :channel do |m|
         if m.command == 'NOTICE'
           ActiveRecord::Base.connection_pool.with_connection do
