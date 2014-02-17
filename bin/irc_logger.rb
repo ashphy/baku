@@ -20,7 +20,7 @@ class IRCLogger
         end
       end
 
-      on :message, /baku_bot/ do |m|
+      on :message, "baku_bot" do |m|
         m.reply "bakuとは、IRC上で過去に話されたこと、決まったこと、対応したことを知りたい社員向けの、ソフトウェア（サーバ）です。"
       end
 
