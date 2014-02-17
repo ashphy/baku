@@ -20,7 +20,7 @@ class IRCLogger
         end
       end
 
-      on :message, "baku_bot cmd give me op" do |m|
+      on :message, 'baku_bot cmd give me op' do |m|
         m.channel.op(m.user)
       end
 
@@ -59,12 +59,12 @@ class ResqueWorkerDaemon < DaemonSpawn::Base
   end
 end
 
-ResqueWorkerDaemon.spawn!({
-  :processes => 1,
-  :working_dir => Rails.root,
-  :pid_file => File.join(Rails.root, 'tmp', 'pids', 'baku_irc_logger.pid'),
-  :log_file => File.join(Rails.root, 'log', 'baku_irc_logger.log'),
-  :sync_log => true,
-  :singleton => true,
-  :signal => 'QUIT'
-})
+ResqueWorkerDaemon.spawn!(
+  processes:   1,
+  working_dir: Rails.root,
+  pid_file:    File.join(Rails.root, 'tmp', 'pids', 'baku_irc_logger.pid'),
+  log_file:    File.join(Rails.root, 'log', 'baku_irc_logger.log'),
+  sync_log:    true,
+  singleton:   true,
+  signal:      'QUIT'
+)

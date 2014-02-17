@@ -4,8 +4,6 @@ class MessagesController < ApplicationController
   # GET /messages
   # GET /messages.json
   def index
-    p params
-
     # 検索フォームの入力内容で検索する
     @q = Message.search(params[:q])
 
@@ -69,6 +67,7 @@ class MessagesController < ApplicationController
   end
 
   private
+
     # Use callbacks to share common setup or constraints between actions.
     def set_message
       @message = Message.find(params[:id])

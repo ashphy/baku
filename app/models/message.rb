@@ -1,14 +1,14 @@
 class Message < ActiveRecord::Base
   belongs_to :channel
 
-  validates_presence_of :text
+  validates :text, presence: true
   validates_length_of :text, maximum: 512
 
-  validates_presence_of :user
+  validates :user, presence: true
   validates_length_of :user, maximum: 20
 
-  validates_presence_of :command
-  validates :command, :inclusion => ['PRIVMSG', 'NOTICE']
+  validates :command, presence: true
+  validates :command, inclusion: %w(PRIVMSG NOTICE)
 
   scope :daily_log, -> (channel, date) { where(created_at: date.beginning_of_day..date.end_of_day).where(channel_id: channel.id) }
 

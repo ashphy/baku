@@ -9,18 +9,18 @@ class Channel < ActiveRecord::Base
   end
 
   def name_without_sign
-    self.name.delete('#')
+    name.delete('#')
   end
 
   def years
-    Message.where(channel_id: id).uniq.pluck("EXTRACT(YEAR FROM created_at)")
+    Message.where(channel_id: id).uniq.pluck('EXTRACT(YEAR FROM created_at)')
   end
 
   def months
-    Message.where(channel_id: id).uniq.pluck("EXTRACT(MONTH FROM created_at)")
+    Message.where(channel_id: id).uniq.pluck('EXTRACT(MONTH FROM created_at)')
   end
 
   def days
-    Message.where(channel_id: id).uniq.pluck("EXTRACT(DAY FROM created_at)")
+    Message.where(channel_id: id).uniq.pluck('EXTRACT(DAY FROM created_at)')
   end
 end

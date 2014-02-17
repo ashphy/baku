@@ -9,15 +9,15 @@ describe Message do
 
   it 'PRIVMSG should save' do
     message.save.should be_true
-    message.user.should == user
-    message.text.should == text
-    message.command.should == command
+    message.user.should be == user
+    message.text.should be == text
+    message.command.should be == command
   end
 
   it 'NOTICE should save' do
     message.command = 'NOTICE'
     message.save.should be_true
-    message.command.should == 'NOTICE'
+    message.command.should be == 'NOTICE'
   end
 
   it 'invalid command should not save' do
