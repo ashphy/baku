@@ -20,7 +20,7 @@ class IRCLogger
         end
       end
 
-      on :message, 'baku_bot cmd give me op' do |m|
+      on :message, 'baku_bot give me op' do |m|
         m.channel.op(m.user)
       end
 
