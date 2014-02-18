@@ -20,6 +20,10 @@ class IRCLogger
         end
       end
 
+      on :message, /baku_bot/ do |m|
+        m.channel.notice "Baku is a IRC logger. I'm recording this channel now."
+      end
+
       on :message, 'baku_bot give me op' do |m|
         m.channel.op(m.user)
       end
