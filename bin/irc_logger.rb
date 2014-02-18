@@ -2,6 +2,52 @@
 require File.expand_path('../../config/application', __FILE__)
 Rails.application.require_environment!
 
+class BakuBot
+  include Cinch::Plugin
+
+  listen_to :channel, method: :notice
+  listen_to :message, method: :save_message
+  listen_to :topic,   method: :save_message
+  listen_to :invite,  method: :on_invite
+
+  match /baku_bot/, method: :on_greetings
+  match 'baku_bot give me op', method: :on_operations
+
+  def on_greetings(m)
+    m.channel.notice "Baku is a IRC logger. I'm recording this channel now."
+  end
+
+  def on_operations(m)
+    m.channel.op(m.user)
+  end
+
+  def save_message(m)
+    ActiveRecord::Base.connection_pool.with_connection do
+      channel = Channel.find_by(name: m.channel.name)
+      message = Message.new(channel_id: channel.id, user: m.user.nick, text: m.message, command: m.command)
+      message.save
+    end
+  end
+
+  def notice(m)
+    if m.command == 'NOTICE'
+      ActiveRecord::Base.connection_pool.with_connection do
+        channel = Channel.find_by(name: m.channel.name)
+        message = Message.new(channel_id: channel.id, user: m.user.nick, text: m.params[1], command: 'NOTICE')
+        message.save
+      end
+    end
+  end
+
+  def on_invite(m)
+    Channel(m.channel).join
+    ActiveRecord::Base.connection_pool.with_connection do
+      server = Server.all.first
+      Channel.create_with(server_id: server.id).find_or_create_by(name: m.channel.name)
+    end
+  end
+end
+
 class IRCLogger
   def initialize(server)
     bot = Cinch::Bot.new do
@@ -10,39 +56,7 @@ class IRCLogger
         c.nick   = 'baku_bot'
         c.channels = server.channels.where(joined: true).pluck(:name)
         c.encoding = server.encoding
-      end
-
-      on :message do |m|
-        ActiveRecord::Base.connection_pool.with_connection do
-          channel = Channel.find_by(name: m.channel.name)
-          message = Message.new(channel_id: channel.id, user: m.user.nick, text: m.message, command: m.command)
-          message.save
-        end
-      end
-
-      on :message, /baku_bot/ do |m|
-        m.channel.notice "Baku is a IRC logger. I'm recording this channel now."
-      end
-
-      on :message, 'baku_bot give me op' do |m|
-        m.channel.op(m.user)
-      end
-
-      on :channel do |m|
-        if m.command == 'NOTICE'
-          ActiveRecord::Base.connection_pool.with_connection do
-            channel = Channel.find_by(name: m.channel.name)
-            message = Message.new(channel_id: channel.id, user: m.user.nick, text: m.params[1], command: 'NOTICE')
-            message.save
-          end
-        end
-      end
-
-      on :invite do |m|
-        ActiveRecord::Base.connection_pool.with_connection do
-          Channel.create_with(server_id: server.id).find_or_create_by(name: m.channel.name)
-        end
-        bot.join(m.channel.name)
+        c.plugins.plugins  = [BakuBot]
       end
     end
 

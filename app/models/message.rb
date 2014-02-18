@@ -8,7 +8,7 @@ class Message < ActiveRecord::Base
   validates_length_of :user, maximum: 20
 
   validates :command, presence: true
-  validates :command, inclusion: %w(PRIVMSG NOTICE)
+  validates :command, inclusion: %w(PRIVMSG NOTICE TOPIC)
 
   scope :daily_log, -> (channel, date) { where(created_at: date.beginning_of_day..date.end_of_day).where(channel_id: channel.id) }
 
