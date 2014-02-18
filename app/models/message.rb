@@ -19,7 +19,8 @@ class Message < ActiveRecord::Base
       id:         channel.name_without_sign,
       year:       created_at.year,
       month:      created_at.month,
-      day:        created_at.day
+      day:        created_at.day,
+      anchor:     id
     }
   end
 end
