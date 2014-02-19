@@ -2,43 +2,48 @@
 require File.expand_path('../../config/application', __FILE__)
 Rails.application.require_environment!
 
-class BakuBot
+# Log the channel message
+class LogBot
   include Cinch::Plugin
 
-  listen_to :channel, method: :notice
+  listen_to :channel, method: :on_notice
   listen_to :message, method: :save_message
   listen_to :topic,   method: :save_message
-  listen_to :invite,  method: :on_invite
-
-  match /baku_bot/, method: :on_greetings
-  match 'baku_bot give me op', method: :on_operations
-
-  def on_greetings(m)
-    m.channel.notice "Baku is a IRC logger. I'm recording this channel now."
-  end
-
-  def on_operations(m)
-    m.channel.op(m.user)
-  end
 
   def save_message(m)
     ActiveRecord::Base.connection_pool.with_connection do
       channel = Channel.find_by(name: m.channel.name)
-      message = Message.new(channel_id: channel.id, user: m.user.nick, text: m.message, command: m.command)
+      message = Message.new(
+        channel_id: channel.id,
+        user: m.user.nick,
+        text: m.message,
+        command: m.command
+      )
       message.save
     end
   end
 
-  def notice(m)
+  def on_notice(m)
     if m.command == 'NOTICE'
       ActiveRecord::Base.connection_pool.with_connection do
         channel = Channel.find_by(name: m.channel.name)
-        message = Message.new(channel_id: channel.id, user: m.user.nick, text: m.params[1], command: 'NOTICE')
+        message = Message.new(
+          channel_id: channel.id,
+          user: m.user.nick,
+          text: m.params[1],
+          command: 'NOTICE'
+        )
         message.save
       end
     end
   end
+end
 
+# When invite, join the channel
+class InviteBot
+  include Cinch::Plugin
+
+  listen_to :invite,  method: :on_invite
   def on_invite(m)
     Channel(m.channel).join
     ActiveRecord::Base.connection_pool.with_connection do
@@ -48,6 +53,27 @@ class BakuBot
   end
 end
 
+# Hello baku_bot!
+class GreetingBot
+  include Cinch::Plugin
+
+  match /#{m.bot.nick}/, use_prefix: false, method: :on_greetings
+  def on_greetings(m)
+    m.channel.notice "Baku is a IRC logger. I'm recording this channel now."
+  end
+end
+
+# Hidden Operation Commands
+class CommandBot
+  include Cinch::Plugin
+
+  match 'baku give me op', use_prefix: false, method: :on_operations
+  def on_operations(m)
+    m.channel.op(m.user)
+  end
+end
+
+# baku_bot
 class IRCLogger
   def initialize(server)
     bot = Cinch::Bot.new do
@@ -56,7 +82,7 @@ class IRCLogger
         c.nick   = 'baku_bot'
         c.channels = server.channels.where(joined: true).pluck(:name)
         c.encoding = server.encoding
-        c.plugins.plugins  = [BakuBot]
+        c.plugins.plugins  = [LogBot, GreetingBot, CommandBot, InviteBot]
       end
     end
 
@@ -64,6 +90,7 @@ class IRCLogger
   end
 end
 
+# Bot Deamon
 class ResqueWorkerDaemon < DaemonSpawn::Base
   def start(args)
     ActiveRecord::Base.connection_pool.with_connection do
