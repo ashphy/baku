@@ -12,7 +12,7 @@
 
 <h3>Where I am joining</h3>
 <div class="row">
-  <% Channel.joins.each do |channel| %>
+  <% Channel.actives.each do |channel| %>
     <div class="col-md-3 channel">
       <%= link_to channel.name, {:controller => "channels", :action => "index", :id => channel.name_without_sign} %>
       <span class="badge"><%= channel.messages.count %></span></div>
