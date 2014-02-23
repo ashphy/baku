@@ -48,7 +48,23 @@ class InviteBot
     Channel(m.channel).join
     ActiveRecord::Base.connection_pool.with_connection do
       server = Server.all.first
-      Channel.create_with(server_id: server.id).find_or_create_by(name: m.channel.name)
+      channel = Channel.create_with(server_id: server.id).find_or_create_by(name: m.channel.name)
+      unless channel.active?
+        channel.active = true
+        channel.save
+      end
+    end
+  end
+
+  listen_to :leaving, method: :on_leaving
+  def on_leaving(m, user)
+    debug m.inspect
+    if m.command == 'KICK' && user.nick == m.bot.nick
+      ActiveRecord::Base.connection_pool.with_connection do
+        channel = Channel.find_by(name: m.channel.name)
+        channel.active = false
+        channel.save
+      end
     end
   end
 end
