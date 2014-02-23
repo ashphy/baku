@@ -20,8 +20,8 @@
     <%= f.collection_select :server_id, Server.all, :id, :host %>
   </div>
   <div class="field">
-    <%= f.label :joined %><br>
-    <%= f.check_box :joined %>
+    <%= f.label :active %><br>
+    <%= f.check_box :active %>
   </div>
   <div class="actions">
     <%= f.submit %>
