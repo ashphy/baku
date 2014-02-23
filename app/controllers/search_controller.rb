@@ -6,7 +6,7 @@ class SearchController < ApplicationController
       @q = params[:q]
       @queries = params[:q].split(/[[:blank:]]/)
       @search = Message.search(text_cont_all: @queries)
-      @messages = @search.result(distinct: true)
+      @messages = @search.result(distinct: true).page(params[:page]).per(100)
       @channels = Channel.all
     end
   end
