@@ -1,17 +1,15 @@
 Baku::Application.routes.draw do
 
-  match '/about', :controller => 'pages', :action => 'about', :via => :get
-
   devise_for :users
 
-  match '/channels/:id(/:year)(/:month)(/:day)', :controller => 'channels', :action => 'index', :via => :get
+  get '/about', :controller => 'pages', :action => 'about'
+  get '/logs/:id(/:year)(/:month)(/:day)', :controller => 'logs', :action => 'index'
+
   resources :channels
-
   resources :servers
-
   resources :messages
-
-  get 'search' => 'search#index'
+  resources :search, :only => [:index]
+  resources :logs, :only => [:index]
 
   root 'search#index'
 
