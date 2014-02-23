@@ -80,7 +80,7 @@ class IRCLogger
       configure do |c|
         c.server = server.host
         c.nick   = 'baku_bot'
-        c.channels = server.channels.where(joined: true).pluck(:name)
+        c.channels = server.channels.actives.pluck(:name)
         c.encoding = server.encoding
         c.plugins.plugins  = [LogBot, GreetingBot, CommandBot, InviteBot]
       end

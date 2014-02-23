@@ -2,7 +2,7 @@ class Channel < ActiveRecord::Base
   has_many :messages
   belongs_to :server
 
-  scope :joins, -> { where(joined: true) }
+  scope :actives, -> { where(active: true) }
 
   def self.get_channel(name)
     Channel.where(name: name).first
