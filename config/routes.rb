@@ -7,7 +7,7 @@ Baku::Application.routes.draw do
 
   resources :channels
   resources :servers
-  resources :messages
+  resources :messages, :only => [:index, :show, :delete]
   resources :search, :only => [:index]
   resources :logs, :only => [:index]
 
