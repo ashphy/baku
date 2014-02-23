@@ -1,0 +1,6 @@
+<td class="<%= 'text-muted' if message.command == "NOTICE" %>">
+  <% if message.command == "TOPIC" %>
+    <span class="label label-info">TOPIC</span>
+  <% end %>
+  <span class="<%= 'text-info' if message.command == "TOPIC" %>"><%= message.text %></span></td>
+</td>

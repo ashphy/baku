@@ -55,7 +55,7 @@
           <tr id="<%= message.id %>">
             <td style="width: 60px"><%= link_to message.created_at.to_s(:irc_time), message %></td>
             <td><%= message.user %></td>
-            <td class="<%= 'text-muted' if message.command == "NOTICE" %>"><%= message.text %></td>
+            <%= render partial: 'messages/message', locals: {message: message} %>
           </tr>
         <% end if @messages.present? %>
         </tbody>
