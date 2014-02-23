@@ -4,12 +4,7 @@ class MessagesController < ApplicationController
   # GET /messages
   # GET /messages.json
   def index
-    # 検索フォームの入力内容で検索する
-    @q = Message.search(params[:q])
-
-    # 重複を排除
-    @messages = @q.result(distinct: true)
-    @channels = Channel.all
+    @messages = Message.page(params[:page])
   end
 
   # GET /messages/1

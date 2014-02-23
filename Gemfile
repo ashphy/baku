@@ -37,6 +37,8 @@ gem 'less-rails'
 
 gem 'devise'
 
+gem 'kaminari'
+
 gem 'meta_request', group: :development
 gem 'rubocop', group: :development
 
