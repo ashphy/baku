@@ -57,6 +57,7 @@
             <li><%= link_to "About", :controller => "/pages", :action => "about"  %></li>
             <% if current_user %>
               <li><%= link_to "Servers", :controller => "/servers"  %></li>
+              <li><%= link_to "Channels", :controller => "/channels"  %></li>
               <li><%= link_to "Messages", :controller => "/messages"  %></li>
             <% end %>
           </ul>

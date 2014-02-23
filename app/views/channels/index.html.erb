@@ -1,64 +1,31 @@
-<h1>Daily Logs</h1>
-  <div id="log">
-    <div id="channel">
-      Channel
-      <ul>
-        <% @channels.each do |channel| %>
-          <li class="<%= 'active' if @channel == channel %>">
-            <%= link_to channel.name, {:controller => "channels", :action => "index", :id => channel.name_without_sign} %>
-          </li>
-        <% end %>
-      </ul>
-    </div>
-    <div id="year">
-      Y
-      <ul>
-        <% @channel.years.each do |year| %>
-          <li class="<%= 'active' if @year == year.to_s %>">
-            <%= link_to year, {:controller => "channels", :action => "index", :id => @channel.name_without_sign, :year => year} %>
-          </li>
-        <% end if @channel.present? %>
-      </ul>
-    </div>
-    <div id="month">
-      M
-      <ul>
-        <% @channel.months.each do |month| %>
-          <li class="<%= 'active' if @month == month.to_s %>">
-            <%= link_to month, {:controller => "channels", :action => "index", :id => @channel.name_without_sign, :year => @year, :month => month} %>
-          </li>
-        <% end if @year.present? %>
-      </ul>
-    </div>
-    <div id="day">
-      D
-      <ul>
-        <% @channel.days.each do |day| %>
-          <li class="<%= 'active' if @day == day.to_s %>">
-            <%= link_to day, {:controller => "channels", :action => "index", :id => @channel.name_without_sign, :year => @year, :month => @month, :day => day} %>
-          </li>
-        <% end if @month.present? %>
-      </ul>
-    </div>
-    <div id="message">
-      <table class="table">
-        <thead>
-        <tr>
-          <th>Time</th>
-          <th>User</th>
-          <th>Text</th>
-        </tr>
-        </thead>
+<h1>Channels</h1>
 
-        <tbody>
-        <% @messages.each do |message| %>
-          <tr id="<%= message.id %>">
-            <td style="width: 60px"><%= link_to message.created_at.to_s(:irc_time), message %></td>
-            <td><%= message.user %></td>
-            <td class="<%= 'text-muted' if message.command == "NOTICE" %>"><%= message.text %></td>
-          </tr>
-        <% end if @messages.present? %>
-        </tbody>
-      </table>
-    </div>
-  </div>
+<table class="table">
+  <thead>
+  <tr>
+    <th>Name</th>
+    <th>Server</th>
+    <th>Join</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @channels.each do |channel| %>
+    <tr>
+      <td><%= channel.name %></td>
+      <td><%= channel.server.host %></td>
+      <td><%= channel.joined %></td>
+      <td><%= link_to 'Show', channel %></td>
+      <td><%= link_to 'Edit', edit_channel_path(channel) %></td>
+      <td><%= link_to 'Destroy', channel, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Channel', new_channel_path %>
