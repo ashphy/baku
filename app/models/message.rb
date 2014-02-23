@@ -14,7 +14,7 @@ class Message < ActiveRecord::Base
 
   def surrounding_log_link_param
     {
-      controller: 'channels',
+      controller: 'logs',
       action:     'index',
       id:         channel.name_without_sign,
       year:       created_at.year,
