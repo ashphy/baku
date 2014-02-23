@@ -57,7 +57,7 @@ end
 class GreetingBot
   include Cinch::Plugin
 
-  match /#{m.bot.nick}/, use_prefix: false, method: :on_greetings
+  match /baku_bot/, use_prefix: false, method: :on_greetings
   def on_greetings(m)
     m.channel.notice "Baku is a IRC logger. I'm recording this channel now."
   end
