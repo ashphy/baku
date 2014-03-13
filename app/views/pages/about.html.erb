@@ -14,7 +14,7 @@
 <div class="row">
   <% Channel.actives.each do |channel| %>
     <div class="col-md-3 channel">
-      <%= link_to channel.name, {:controller => "channels", :action => "index", :id => channel.name_without_sign} %>
+      <%= link_to channel.name, {:controller => "logs", :action => "index", :id => channel.name_without_sign} %>
       <span class="badge"><%= channel.messages.count %></span></div>
   <% end %>
 </div>
