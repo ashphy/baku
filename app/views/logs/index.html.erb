@@ -23,7 +23,7 @@
     <div id="month">
       M
       <ul>
-        <% @channel.months.each do |month| %>
+        <% @channel.months(@year).each do |month| %>
           <li class="<%= 'active' if @month == month.to_s %>">
             <%= link_to month, {:controller => "logs", :action => "index", :id => @channel.name_without_sign, :year => @year, :month => month} %>
           </li>
@@ -33,7 +33,7 @@
     <div id="day">
       D
       <ul>
-        <% @channel.days.each do |day| %>
+        <% @channel.days(@year, @month).each do |day| %>
           <li class="<%= 'active' if @day == day.to_s %>">
             <%= link_to day, {:controller => "logs", :action => "index", :id => @channel.name_without_sign, :year => @year, :month => @month, :day => day} %>
           </li>

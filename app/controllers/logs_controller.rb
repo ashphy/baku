@@ -20,13 +20,13 @@ class LogsController < ApplicationController
     if params[:month].present?
       @month = params[:month]
     else
-      @month = @channel.months.last.to_s
+      @month = @channel.months(@year).last.to_s
     end
 
     if params[:day].present?
       @day = params[:day]
     else
-      @day = @channel.days.last.to_s
+      @day = @channel.days(@year, @month).last.to_s
     end
 
     @date = Date.new(@year.to_i, @month.to_i, @day.to_i)
