@@ -84,9 +84,17 @@ end
 class CommandBot
   include Cinch::Plugin
 
-  match 'baku give me op', use_prefix: false, method: :on_operations
-  def on_operations(m)
-    m.channel.op(m.user)
+  match /baku give (.*?) op/, use_prefix: false, method: :on_operations
+  def on_operations(m, user)
+    if user == 'me'
+      m.channel.op(m.user)
+    elsif user == 'all' || user == 'everyone'
+      m.channel.users.each do |u, modes|
+        m.channel.op(u) unless modes.include?("o")
+      end
+    else
+      m.channel.op(user)
+    end
   end
 end
 
