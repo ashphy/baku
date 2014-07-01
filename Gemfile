@@ -4,6 +4,7 @@ source 'https://rubygems.org'
 gem 'rails', '4.0.2'
 
 # Use Mysql as the database for Active Record
+
 gem 'mysql2'
 
 # Use SCSS for stylesheets
@@ -60,3 +61,5 @@ end
 # gem 'debugger', group: [:development, :test]
 
 gem "rspec-rails", group: :test
+gem 'factory_girl_rails', group: :test
+gem 'shoulda-matchers', group: :test
