@@ -53,7 +53,7 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav">
-            <li><%= link_to "Daily Logs", :controller => "/logs"  %></li>
+            <li><%= link_to "Daily Logs", :controller => "/logs", :action => "index", :id => ''  %></li>
             <li><%= link_to "About", :controller => "/pages", :action => "about"  %></li>
             <% if current_user %>
               <li><%= link_to "Servers", :controller => "/servers"  %></li>
