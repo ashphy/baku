@@ -1,0 +1,24 @@
+<h1>Topics for <%= @channel.name %></h1>
+<div id="topic">
+  <div id="message">
+    <table class="table">
+      <thead>
+      <tr>
+        <th>Time</th>
+        <th>User</th>
+        <th>Text</th>
+      </tr>
+      </thead>
+
+      <tbody>
+      <% @messages.each do |message| %>
+        <tr id="<%= message.id %>">
+          <td style="width: 180px"><%= link_to message.created_at.to_s(:irc_detail), message %></td>
+          <td><%= message.user %></td>
+          <%= render partial: 'messages/message', locals: {message: message} %>
+        </tr>
+      <% end if @messages.present? %>
+      </tbody>
+    </table>
+  </div>
+</div>

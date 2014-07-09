@@ -32,5 +32,4 @@ class LogsController < ApplicationController
     @date = Date.new(@year.to_i, @month.to_i, @day.to_i)
     @messages = Message.daily_log(@channel, @date)
   end
-
 end

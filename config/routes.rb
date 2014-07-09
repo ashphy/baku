@@ -10,6 +10,7 @@ Baku::Application.routes.draw do
   resources :messages, :only => [:index, :show, :delete]
   resources :search, :only => [:index]
   resources :logs, :only => [:index]
+  resources :topics, :only => [:show]
 
   root 'search#index'
 
