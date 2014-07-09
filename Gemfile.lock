@@ -55,6 +55,8 @@ GEM
     factory_girl_rails (4.4.1)
       factory_girl (~> 4.4.0)
       railties (>= 3.0.0)
+    groupdate (2.2.1)
+      activesupport (>= 3)
     hike (1.2.3)
     i18n (0.6.9)
     jbuilder (1.5.3)
@@ -184,6 +186,7 @@ DEPENDENCIES
   daemon-spawn
   devise
   factory_girl_rails
+  groupdate
   jbuilder (~> 1.2)
   jquery-rails
   kaminari

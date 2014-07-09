@@ -40,6 +40,8 @@ gem 'devise'
 
 gem 'kaminari'
 
+gem 'groupdate'
+
 gem 'meta_request', group: :development
 gem 'rubocop', group: :development
 
