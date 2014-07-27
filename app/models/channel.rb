@@ -52,4 +52,8 @@ class Channel < ActiveRecord::Base
   def topics
     Message.where(channel_id: id).where(command: 'TOPIC')
   end
+
+  def hasNoMessages?
+    messages.count == 0
+  end
 end

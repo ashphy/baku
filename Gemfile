@@ -45,6 +45,8 @@ gem 'groupdate'
 gem 'meta_request', group: :development
 gem 'rubocop', group: :development
 gem 'annotate', group: :development
+gem 'better_errors', group: :development
+gem 'binding_of_caller', group: :development
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
@@ -63,6 +65,7 @@ end
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
-gem "rspec-rails", group: :test
+gem 'rspec-rails', group: :test
+gem 'database_cleaner', group: :test
 gem 'factory_girl_rails', group: :test
 gem 'shoulda-matchers', group: :test

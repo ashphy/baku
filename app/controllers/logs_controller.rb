@@ -11,25 +11,29 @@ class LogsController < ApplicationController
       @channel = @channels.first
     end
 
-    if params[:year].present?
-      @year = params[:year]
+    if @channel.hasNoMessages?
+      @messages = Message.none
     else
-      @year = @channel.years.last.to_s
-    end
+      if params[:year].present?
+        @year = params[:year]
+      else
+        @year = @channel.years.last.to_s
+      end
 
-    if params[:month].present?
-      @month = params[:month]
-    else
-      @month = @channel.months(@year).last.to_s
-    end
+      if params[:month].present?
+        @month = params[:month]
+      else
+        @month = @channel.months(@year).last.to_s
+      end
 
-    if params[:day].present?
-      @day = params[:day]
-    else
-      @day = @channel.days(@year, @month).last.to_s
-    end
+      if params[:day].present?
+        @day = params[:day]
+      else
+        @day = @channel.days(@year, @month).last.to_s
+      end
 
-    @date = Date.new(@year.to_i, @month.to_i, @day.to_i)
-    @messages = Message.daily_log(@channel, @date)
+      @date = Date.new(@year.to_i, @month.to_i, @day.to_i)
+      @messages = Message.daily_log(@channel, @date)
+    end
   end
 end
