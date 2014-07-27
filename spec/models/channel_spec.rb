@@ -1,3 +1,15 @@
+# == Schema Information
+#
+# Table name: channels
+#
+#  id         :integer          not null, primary key
+#  server_id  :integer
+#  name       :string(255)
+#  created_at :datetime
+#  updated_at :datetime
+#  active     :boolean          default(TRUE), not null
+#
+
 require 'spec_helper'
 
 describe Channel, :type => :model do

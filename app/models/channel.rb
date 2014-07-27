@@ -1,3 +1,15 @@
+# == Schema Information
+#
+# Table name: channels
+#
+#  id         :integer          not null, primary key
+#  server_id  :integer
+#  name       :string(255)
+#  created_at :datetime
+#  updated_at :datetime
+#  active     :boolean          default(TRUE), not null
+#
+
 class Channel < ActiveRecord::Base
   has_many :messages
   belongs_to :server

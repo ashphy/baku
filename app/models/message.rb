@@ -1,3 +1,16 @@
+# == Schema Information
+#
+# Table name: messages
+#
+#  id         :integer          not null, primary key
+#  channel_id :integer
+#  text       :string(512)
+#  user       :string(20)       not null
+#  command    :string(255)
+#  created_at :datetime
+#  updated_at :datetime
+#
+
 class Message < ActiveRecord::Base
   belongs_to :channel
 
