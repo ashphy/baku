@@ -1,5 +1,5 @@
 require 'spec_helper'
 
-describe MessagesController do
+describe MessagesController, :type => :controller do
 
 end
