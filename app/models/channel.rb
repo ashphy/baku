@@ -49,6 +49,10 @@ class Channel < ActiveRecord::Base
     end
   end
 
+  def dates
+    messages.group_by_day(:created_at).count.select { |date, count| count > 0 }
+  end
+
   def topics
     Message.where(channel_id: id).where(command: 'TOPIC')
   end

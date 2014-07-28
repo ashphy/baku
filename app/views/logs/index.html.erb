@@ -1,68 +1,69 @@
-<h1>Daily Logs</h1>
-  <div id="log">
-    <div id="channel">
-      Channel
-      <ul>
-        <% @channels.each do |channel| %>
-          <li class="<%= 'active' if @channel == channel %>">
-            <%= link_to channel.name, {:controller => "logs", :action => "index", :id => channel.name_without_sign} %>
-          </li>
-        <% end %>
-      </ul>
-    </div>
-    <div id="year">
-      Y
-      <ul>
-        <% @channel.years.each do |year| %>
-          <li class="<%= 'active' if @year == year.to_s %>">
-            <%= link_to year, {:controller => "logs", :action => "index", :id => @channel.name_without_sign, :year => year} %>
-          </li>
-        <% end if @channel.present? %>
-      </ul>
-    </div>
-    <div id="month">
-      M
-      <ul>
-        <% @channel.months(@year).each do |month| %>
-          <li class="<%= 'active' if @month == month.to_s %>">
-            <%= link_to month, {:controller => "logs", :action => "index", :id => @channel.name_without_sign, :year => @year, :month => month} %>
-          </li>
-        <% end if @year.present? %>
-      </ul>
-    </div>
-    <div id="day">
-      D
-      <ul>
-        <% @channel.days(@year, @month).each do |day| %>
-          <li class="<%= 'active' if @day == day.to_s %>">
-            <%= link_to day, {:controller => "logs", :action => "index", :id => @channel.name_without_sign, :year => @year, :month => @month, :day => day} %>
-          </li>
-        <% end if @month.present? %>
-      </ul>
-    </div>
-    <div id="message">
-      <table class="table">
-        <thead>
-        <tr>
-          <th>Time</th>
-          <th>User</th>
-          <th>Text</th>
-        </tr>
-        </thead>
-
-        <tbody>
-        <% if @messages.present? %>
-          <% @messages.each do |message| %>
-            <tr id="<%= message.id %>">
-              <td style="width: 60px"><%= link_to message.created_at.to_s(:irc_time), message %></td>
-              <td><%= message.user %></td>
-              <%= render partial: 'messages/message', locals: {message: message} %>
-            </tr>
-          <% end %>
-        <% else %>
-          <tr><td colspan="3">No logs recorded.</td></tr>
-        <% end %>
-        </tbody>
-      </table>
-    </div>
+<div id="log-header" class="row">
+  <div class="col-xs-3">
+    <h1>Daily Logs</h1>
   </div>
+  <div class="btn-group col-xs-2">
+    <button type="button" class="btn btn-default"><%= @channel.name %></button>
+    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+      <span class="caret"></span>
+      <span class="sr-only">Toggle Dropdown</span>
+    </button>
+    <ul class="dropdown-menu" role="menu">
+      <% @channels.each do |channel| %>
+        <li class="<%= 'active' if @channel == channel %>">
+          <%= link_to channel.name, {:controller => "logs", :action => "index", :id => channel.name_without_sign} %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+  <div class="input-group date col-xs-2">
+    <input type="text" class="form-control" value="<%= "#{@year}-#{'%02d' % @month}-#{'%02d' % @day}" if @year.present? %>">
+    <span class="input-group-addon">
+      <i class="glyphicon glyphicon-th"></i>
+    </span>
+  </div>
+</div>
+
+<div id="log">
+  <div id="message">
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th>Time</th>
+        <th>User</th>
+        <th>Text</th>
+      </tr>
+      </thead>
+
+      <tbody>
+      <% if @messages.present? %>
+        <% @messages.each do |message| %>
+          <tr id="<%= message.id %>">
+            <td style="width: 60px"><%= link_to message.created_at.to_s(:irc_time), message %></td>
+            <td><%= message.user %></td>
+            <%= render partial: 'messages/message', locals: {message: message} %>
+          </tr>
+        <% end %>
+      <% else %>
+        <tr><td colspan="3">No logs recorded.</td></tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<%= javascript_tag do %>
+  var dates = <%= raw @dates.keys.map { |d| d.strftime('%Y-%m-%d') } if @dates.present?  %>
+  $('#log-header .input-group.date').datepicker({
+    format: 'yyyy-mm-dd',
+    autoclose: true,
+    todayHighlight: true,
+    beforeShowDay: function (date){
+      var target = moment(date).format('YYYY-MM-DD')
+      return _.contains(dates, target);
+    }
+  }).on('changeDate', function(e){
+    var base = '<%= url_for :controller => "logs", :action => "index", :id => @channel.name_without_sign %>';
+    location.href= base + '/' + e.date.getFullYear() + '/' + (e.date.getMonth() + 1) + '/' + e.date.getDate();
+  });
+<% end %>
