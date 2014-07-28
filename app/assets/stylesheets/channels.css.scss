@@ -2,6 +2,10 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+body {
+  margin-top: 70px;
+}
+
 #log-header {
   position: fixed;
   top: 50px;
@@ -15,7 +19,7 @@
 
 #log {
   #message {
-    margin-top: 150px;
+    margin-top: 50px;
     padding-left: 20px;
   }
 
