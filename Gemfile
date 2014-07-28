@@ -42,6 +42,8 @@ gem 'kaminari'
 
 gem 'groupdate'
 
+gem 'rails_autolink'
+
 gem 'meta_request', group: :development
 gem 'rubocop', group: :development
 gem 'annotate', group: :development

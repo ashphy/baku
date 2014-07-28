@@ -2,5 +2,7 @@
   <% if message.command == "TOPIC" %>
     <span class="label label-info">TOPIC</span>
   <% end %>
-  <span class="<%= 'text-info' if message.command == "TOPIC" %>"><%= message.text %></span></td>
+  <span class="<%= 'text-info' if message.command == "TOPIC" %>">
+    <%= auto_link(message.text) %>
+  </span>
 </td>
