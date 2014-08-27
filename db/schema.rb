@@ -11,15 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140211075555) do
+ActiveRecord::Schema.define(version: 20140827135539) do
 
   create_table "channels", force: true do |t|
     t.integer  "server_id"
     t.string   "name"
-    t.boolean  "active",     default: true, null: false
-    t.boolean  "boolean",    default: true, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "active",     default: true, null: false
+    t.string   "key"
   end
 
   add_index "channels", ["name"], name: "index_channels_on_name", unique: true, using: :btree

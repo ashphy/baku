@@ -4,6 +4,7 @@
   <thead>
   <tr>
     <th>Name</th>
+    <th>Key</th>
     <th>Server</th>
     <th>Join</th>
     <th></th>
@@ -16,6 +17,7 @@
   <% @channels.each do |channel| %>
     <tr>
       <td><%= channel.name %></td>
+      <td><%= channel.key || '-' %></td>
       <td><%= channel.server.host %></td>
       <td><%= channel.active %></td>
       <td><%= link_to 'Show', channel %></td>

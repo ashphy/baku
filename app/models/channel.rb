@@ -8,6 +8,7 @@
 #  created_at :datetime
 #  updated_at :datetime
 #  active     :boolean          default(TRUE), not null
+#  key        :string(255)
 #
 
 class Channel < ActiveRecord::Base

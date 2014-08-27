@@ -16,6 +16,10 @@
     <%= f.text_field :name %>
   </div>
   <div class="field">
+    <%= f.label :key %><br>
+    <%= f.text_field :key %>
+  </div>
+  <div class="field">
     <%= f.label :server_id %><br>
     <%= f.collection_select :server_id, Server.all, :id, :host %>
   </div>
