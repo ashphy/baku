@@ -1,0 +1,12 @@
+defaults: &defaults
+  nick: 'baku_bot'
+  url: 'http://localhost:3000/'
+
+development:
+  <<: *defaults
+
+test:
+  <<: *defaults
+
+production:
+  <<: *defaults

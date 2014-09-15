@@ -2,6 +2,8 @@
 require File.expand_path('../../config/application', __FILE__)
 Rails.application.require_environment!
 
+require_relative 'bot_settings'
+
 # Log the channel message
 class BakuBot
   include Cinch::Plugin
@@ -82,6 +84,7 @@ class BakuBot
     help = <<-EOS
 #{m.bot.nick} is an IRC logger. Please contribute to https://github.com/ashphy/baku
 Invite me to start recording the channel, kick me to stop recording.
+You can see the logs at #{BotSettings.url}
 Commands:
     #{m.bot.nick} give [me|all|everyone|us|NICK] op   Gives one channel operator
     #{m.bot.nick} help                                Show this help
@@ -96,7 +99,7 @@ class IRCLogger
     bot = Cinch::Bot.new do
       configure do |c|
         c.server = server.host
-        c.nick   = 'baku_bot'
+        c.nick   = BotSettings.nick
         c.channels = server.channels.actives.map { |c| c.key? ? "#{c.name} #{c.key}" : c.name }
         c.encoding = server.encoding
         c.plugins.plugins  = [BakuBot]

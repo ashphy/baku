@@ -37,6 +37,7 @@ gem 'rails_autolink'
 # for IRC Logger
 gem 'cinch'
 gem 'daemon-spawn', require: 'daemon_spawn'
+gem 'settingslogic'
 
 group :development do
   gem 'meta_request'
