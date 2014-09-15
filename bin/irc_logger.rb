@@ -105,17 +105,11 @@ class IRCLogger
       configure do |c|
         c.server = server.host
         c.nick   = 'baku_bot'
+        c.channels = server.channels.actives.map { |c| c.key? ? "#{c.name} #{c.key}" : c.name }
         c.encoding = server.encoding
         c.plugins.plugins  = [LogBot, GreetingBot, CommandBot, InviteBot]
       end
     end
-
-    bot.on :connect do |m, user|
-      server.channels.each do |ch|
-        bot.join ch.name, ch.key
-      end
-    end
-
     bot.start
   end
 end
