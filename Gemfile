@@ -28,44 +28,32 @@ gem 'turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.0'
 
-gem 'cinch'
-
 gem 'ransack'
-
-gem 'daemon-spawn', :require => 'daemon_spawn'
-
 gem 'devise'
-
 gem 'kaminari'
-
 gem 'groupdate'
-
 gem 'rails_autolink'
 
-gem 'meta_request', group: :development
-gem 'rubocop', group: :development, require: false
-gem 'annotate', group: :development
-gem 'better_errors', group: :development
-gem 'binding_of_caller', group: :development
+# for IRC Logger
+gem 'cinch'
+gem 'daemon-spawn', require: 'daemon_spawn'
+
+group :development do
+  gem 'meta_request'
+  gem 'rubocop', require: false
+  gem 'annotate'
+  gem 'better_errors'
+  gem 'binding_of_caller'
+end
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
 end
 
-# Use ActiveModel has_secure_password
-# gem 'bcrypt-ruby', '~> 3.1.2'
-
-# Use unicorn as the app server
-# gem 'unicorn'
-
-# Use Capistrano for deployment
-# gem 'capistrano', group: :development
-
-# Use debugger
-# gem 'debugger', group: [:development, :test]
-
-gem 'rspec-rails', group: :test
-gem 'database_cleaner', group: :test
-gem 'factory_girl_rails', group: :test
-gem 'shoulda-matchers', group: :test
+group :test do
+  gem 'rspec-rails'
+  gem 'database_cleaner'
+  gem 'factory_girl_rails'
+  gem 'shoulda-matchers'
+end
