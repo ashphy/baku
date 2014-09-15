@@ -34,8 +34,6 @@ gem 'ransack'
 
 gem 'daemon-spawn', :require => 'daemon_spawn'
 
-gem 'less-rails'
-
 gem 'devise'
 
 gem 'kaminari'
