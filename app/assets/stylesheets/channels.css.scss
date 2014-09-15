@@ -10,10 +10,21 @@ body {
   position: fixed;
   top: 50px;
   z-index: 1030;
+  width: 100%;
   background-color: #FFFFFF;
 
   .btn-group, .input-group {
-    margin-top: 30px;
+    margin-top: 25px;
+  }
+
+  .input-group {
+    width: 200px;
+  }
+
+  div {
+    float: left;
+    margin-left: 20px;
+    bottom: 0;
   }
 }
 
@@ -64,4 +75,9 @@ body {
 
 tr:target {
   background-color: #fff3c2;
+}
+
+#channesl-list {
+  max-height: 500px;
+  overflow-y: scroll;
 }

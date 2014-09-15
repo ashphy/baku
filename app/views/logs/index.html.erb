@@ -1,14 +1,14 @@
 <div id="log-header" class="row">
-  <div class="col-xs-3">
+  <div>
     <h1>Daily Logs</h1>
   </div>
-  <div class="btn-group col-xs-2">
+  <div class="btn-group">
     <button type="button" class="btn btn-default"><%= @channel.name %></button>
     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
       <span class="caret"></span>
       <span class="sr-only">Toggle Dropdown</span>
     </button>
-    <ul class="dropdown-menu" role="menu">
+    <ul id="channesl-list" class="dropdown-menu" role="menu">
       <% @channels.each do |channel| %>
         <li class="<%= 'active' if @channel == channel %>">
           <%= link_to channel.name, {:controller => "logs", :action => "index", :id => channel.name_without_sign} %>
@@ -16,7 +16,7 @@
       <% end %>
     </ul>
   </div>
-  <div class="input-group date col-xs-2">
+  <div class="input-group date">
     <input type="text" class="form-control" value="<%= "#{@year}-#{'%02d' % @month}-#{'%02d' % @day}" if @year.present? %>">
     <span class="input-group-addon">
       <i class="glyphicon glyphicon-th"></i>
