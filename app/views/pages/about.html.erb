@@ -10,10 +10,10 @@
   If not, please kick me from the channel.
 </p>
 
-<h3>Where I am joining</h3>
+<h3>I'm here...</h3>
 <div class="row">
   <% Channel.actives.each do |channel| %>
-    <div class="col-md-3 channel">
+    <div class="pull-left channel">
       <%= link_to channel.name, {:controller => "logs", :action => "index", :id => channel.name_without_sign} %>
       <span class="badge"><%= channel.messages.count %></span></div>
   <% end %>
