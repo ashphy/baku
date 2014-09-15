@@ -56,14 +56,15 @@ class BakuBot
 
   listen_to :leaving, method: :on_leaving
   def on_leaving(m, user)
-    debug m.inspect
     if m.command == 'KICK' && user.nick == m.bot.nick
-      ActiveRecord::Base.connection_pool.with_connection do
-        channel = Channel.find_by(name: m.channel.name)
-        channel.active = false
-        channel.save
-      end
+      stop_recording(m)
     end
+  end
+
+  match /we can't have you/, method: :on_kick
+  def on_kick(m)
+    stop_recording(m)
+    m.channel.part("OK, I'll find a new home")
   end
 
   match /give (.*?) op/, method: :on_operations
@@ -86,10 +87,21 @@ class BakuBot
 Invite me to start recording the channel, kick me to stop recording.
 You can see the logs at #{BotSettings.url}
 Commands:
-    #{m.bot.nick} give [me|all|everyone|us|NICK] op   Gives one channel operator
+    #{m.bot.nick} give [me|all|everyone|us|NICK] op   Gives one channel operators
+    #{m.bot.nick} we can't have you                   Stop recording, and leave from this channel
     #{m.bot.nick} help                                Show this help
     EOS
     help.lines { |h| m.channel.notice h }
+  end
+
+  private
+
+  def stop_recording(m)
+    ActiveRecord::Base.connection_pool.with_connection do
+      channel = Channel.find_by(name: m.channel.name)
+      channel.active = false
+      channel.save
+    end
   end
 end
 
