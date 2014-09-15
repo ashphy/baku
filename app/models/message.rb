@@ -24,6 +24,7 @@ class Message < ActiveRecord::Base
   validates :command, inclusion: %w(PRIVMSG NOTICE TOPIC)
 
   scope :daily_log, -> (channel, date) { where(created_at: date.beginning_of_day..date.end_of_day).where(channel_id: channel.id) }
+  scope :search_with, -> (query) { where("match(text) against(\"#{query}\")") }
 
   def surrounding_log_link_param
     {

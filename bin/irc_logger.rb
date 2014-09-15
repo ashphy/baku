@@ -14,7 +14,7 @@ class BakuBot
   listen_to :topic,   method: :save_message
   def save_message(m)
     ActiveRecord::Base.connection_pool.with_connection do
-      channel = Channel.find_by(name: m.channel.name)
+      channel = channel(m)
       message = Message.new(
         channel_id: channel.id,
         user: m.user.nick,
@@ -29,7 +29,7 @@ class BakuBot
   def on_notice(m)
     if m.command == 'NOTICE'
       ActiveRecord::Base.connection_pool.with_connection do
-        channel = Channel.find_by(name: m.channel.name)
+        channel = channel(m)
         message = Message.new(
           channel_id: channel.id,
           user: m.user.nick,
@@ -80,6 +80,27 @@ class BakuBot
     end
   end
 
+  match /search (.+)/, method: :on_search
+  def on_search(m, query)
+    if query.present?
+      ActiveRecord::Base.connection_pool.with_connection do
+        result = channel(m).messages.search_with(query).limit(10)
+        if result.length == 0
+          m.channel.notice 'No logs found'
+        else
+          result.each do |message|
+            date = message.created_at.to_s(:irc_search)
+            user = message.user
+            text = message.text
+            m.channel.notice "#{date} <#{user}> #{text}"
+          end
+        end
+      end
+    else
+      m.channel.notice 'Search keywords are required'
+    end
+  end
+
   match 'help', method: :on_greetings
   def on_greetings(m)
     help = <<-EOS
@@ -87,7 +108,8 @@ class BakuBot
 Invite me to start recording the channel, kick me to stop recording.
 You can see the logs at #{BotSettings.url}
 Commands:
-    #{m.bot.nick} give [me|all|everyone|us|NICK] op   Gives one channel operators
+    #{m.bot.nick} search KEYWORDS                     Search the keywords from this channel. Up to a maximum of 10 logs.
+    #{m.bot.nick} give [me|all|everyone|us|NICK] op   Give one channel operators
     #{m.bot.nick} we can't have you                   Stop recording, and leave from this channel
     #{m.bot.nick} help                                Show this help
     EOS
@@ -98,10 +120,14 @@ Commands:
 
   def stop_recording(m)
     ActiveRecord::Base.connection_pool.with_connection do
-      channel = Channel.find_by(name: m.channel.name)
+      channel = channel(m)
       channel.active = false
       channel.save
     end
+  end
+
+  def channel(m)
+    Channel.find_by(name: m.channel.name)
   end
 end
 

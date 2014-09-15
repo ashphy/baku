@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140915104555) do
+ActiveRecord::Schema.define(version: 20140915163102) do
 
   create_table "channels", force: true do |t|
     t.integer  "server_id"
@@ -35,6 +35,7 @@ ActiveRecord::Schema.define(version: 20140915104555) do
 
   add_index "messages", ["channel_id"], name: "index_messages_on_channel_id", using: :btree
   add_index "messages", ["created_at"], name: "index_messages_on_created_at", using: :btree
+  add_index "messages", ["text"], name: "index_messages_on_text", type: :fulltext
 
   create_table "servers", force: true do |t|
     t.string   "host"
