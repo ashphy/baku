@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.0.2'
+gem 'rails', '4.1.6'
 
 # Use Mysql as the database for Active Record
 
@@ -26,7 +26,7 @@ gem 'jquery-rails'
 gem 'turbolinks'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'jbuilder', '~> 1.2'
+gem 'jbuilder', '~> 2.0'
 
 gem 'cinch'
 
@@ -45,7 +45,7 @@ gem 'groupdate'
 gem 'rails_autolink'
 
 gem 'meta_request', group: :development
-gem 'rubocop', group: :development
+gem 'rubocop', group: :development, require: false
 gem 'annotate', group: :development
 gem 'better_errors', group: :development
 gem 'binding_of_caller', group: :development
