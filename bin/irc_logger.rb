@@ -3,13 +3,13 @@ require File.expand_path('../../config/application', __FILE__)
 Rails.application.require_environment!
 
 # Log the channel message
-class LogBot
+class BakuBot
   include Cinch::Plugin
 
-  listen_to :channel, method: :on_notice
+  set :prefix, lambda{ |m| Regexp.new('^' + Regexp.escape(m.bot.nick + ' '))}
+
   listen_to :message, method: :save_message
   listen_to :topic,   method: :save_message
-
   def save_message(m)
     ActiveRecord::Base.connection_pool.with_connection do
       channel = Channel.find_by(name: m.channel.name)
@@ -23,6 +23,7 @@ class LogBot
     end
   end
 
+  listen_to :channel, method: :on_notice
   def on_notice(m)
     if m.command == 'NOTICE'
       ActiveRecord::Base.connection_pool.with_connection do
@@ -37,11 +38,6 @@ class LogBot
       end
     end
   end
-end
-
-# When invite, join the channel
-class InviteBot
-  include Cinch::Plugin
 
   listen_to :invite,  method: :on_invite
   def on_invite(m)
@@ -67,28 +63,12 @@ class InviteBot
       end
     end
   end
-end
 
-# Hello baku_bot!
-class GreetingBot
-  include Cinch::Plugin
-
-  match /hello baku/i, use_prefix: false, method: :on_greetings
-  match /baku_bot help/i, use_prefix: false, method: :on_greetings
-  def on_greetings(m)
-    m.channel.notice "Baku is a IRC logger. I'm recording this channel now."
-  end
-end
-
-# Hidden Operation Commands
-class CommandBot
-  include Cinch::Plugin
-
-  match /baku give (.*?) op/, use_prefix: false, method: :on_operations
+  match /give (.*?) op/, method: :on_operations
   def on_operations(m, user)
     if user == 'me'
       m.channel.op(m.user)
-    elsif user == 'all' || user == 'everyone'
+    elsif ['all', 'everyone', 'us'].include?(user)
       m.channel.users.each do |u, modes|
         m.channel.op(u) unless modes.include?("o")
       end
@@ -96,9 +76,21 @@ class CommandBot
       m.channel.op(user)
     end
   end
+
+  match 'help', method: :on_greetings
+  def on_greetings(m)
+    help = <<-EOS
+#{m.bot.nick} is an IRC logger. Please contribute to https://github.com/ashphy/baku
+Invite me to start recording the channel, kick me to stop recording.
+Commands:
+    #{m.bot.nick} give [me|all|everyone|us|NICK] op   Gives one channel operator
+    #{m.bot.nick} help                                Show this help
+    EOS
+    help.lines { |h| m.channel.notice h }
+  end
 end
 
-# baku_bot
+# IRC Logger Process
 class IRCLogger
   def initialize(server)
     bot = Cinch::Bot.new do
@@ -107,14 +99,14 @@ class IRCLogger
         c.nick   = 'baku_bot'
         c.channels = server.channels.actives.map { |c| c.key? ? "#{c.name} #{c.key}" : c.name }
         c.encoding = server.encoding
-        c.plugins.plugins  = [LogBot, GreetingBot, CommandBot, InviteBot]
+        c.plugins.plugins  = [BakuBot]
       end
     end
     bot.start
   end
 end
 
-# Bot Deamon
+# Bot Daemon
 class ResqueWorkerDaemon < DaemonSpawn::Base
   def start(args)
     ActiveRecord::Base.connection_pool.with_connection do
