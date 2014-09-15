@@ -13,6 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
+//= require bootstrap.min
 //= require bootstrap-datepicker.js
 //= require lodash.min
 //= require moment.min

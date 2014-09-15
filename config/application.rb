@@ -21,6 +21,6 @@ module Baku
     I18n.enforce_available_locales = true
     config.i18n.default_locale = :en
 
-    config.assets.paths << "#{Rails}/app/assets/fonts"
+    config.assets.paths << "#{Rails}/vendor/assets/fonts"
   end
 end
