@@ -1,5 +1,8 @@
 Baku - The IRC Logger
 ======
+[![Build Status](https://travis-ci.org/ashphy/baku.svg?branch=master)](https://travis-ci.org/ashphy/baku)
+[![Code Climate](https://codeclimate.com/github/ashphy/baku/badges/gpa.svg)](https://codeclimate.com/github/ashphy/baku)
+
 Share all knowledge, devour it.
 
 ## Features
