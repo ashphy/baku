@@ -6,7 +6,6 @@ rvm:
 - jruby-19mode
 - rbx-2
 before_script:
-  - mysql -e 'SET storage_engine=MYISAM;'
   - mysql -e 'create database baku_test;'
 script:
   - RAILS_ENV=test bundle exec rake db:migrate spec
