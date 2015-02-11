@@ -16,12 +16,16 @@
     </div>
   </div>
 <% else %>
-  <%= form_tag('/search', :method => :get) do %>
-    <div class="form-group col-sm-10">
-      <label class="sr-only" for="q">Name contains</label>
-      <input class="form-control" id="q" name="q" placeholder="What are you looking for?" type="text" value="<%= @q %>" />
+  <%= form_tag('/search', method: :get, class: 'form-inline') do %>
+    <div class="row">
+      <div class="col-xs-10">
+          <label class="sr-only" for="q">Search keywords</label>
+          <input class="form-control search-query" id="q" name="q" placeholder="What are you looking for?" type="text" value="<%= @q %>" />
+      </div>
+      <div class="col-xs-2">
+        <button type="submit" class="btn btn-primary">Search</button>
+      </div>
     </div>
-    <button type="submit" class="btn btn-primary col-sm-2">Search</button>
   <% end %>
 
   <table class="table">
