@@ -3,10 +3,8 @@ class SearchController < ApplicationController
   # GET /search.json
   def index
     if params[:q].present?
-      @q = params[:q]
-      @queries = params[:q].split(/[[:blank:]]/)
-      @search = Message.search(text_cont_all: @queries)
-      @messages = @search.result(distinct: true).page(params[:page]).per(100)
+      @search = Message.search_with(params[:q])
+      @messages = @search.page(params[:page]).per(100)
       @channels = Channel.all
     end
   end
