@@ -2,7 +2,6 @@ language: ruby
 rvm:
 - ruby-head
 - 2.1.0
-- rbx-2
 before_script:
   - mysql -e 'create database baku_test;'
 script:
