@@ -11,7 +11,7 @@
 #  key        :string(255)
 #
 
-require 'spec_helper'
+require 'rails_helper'
 
 describe Channel, :type => :model do
   it { expect(subject).to belong_to(:server) }
