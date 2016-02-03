@@ -28,7 +28,7 @@ class Message < ActiveRecord::Base
 
   def self.search_query(query)
     q = query.gsub(/[[:cntrl:]]/, '')
-    "D+ #{q}" # Define AND search
+    "*D+ #{q}" # Define AND search
   end
 
   def surrounding_log_link_param
