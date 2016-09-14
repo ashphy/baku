@@ -8,7 +8,7 @@ class LogsController < ApplicationController
     if params[:id].present?
       @channel = @channels.get_channel("##{params[:id]}")
     else
-      @channel = @channels.first
+      @channel = @channels.first!
     end
 
     if @channel.hasNoMessages?

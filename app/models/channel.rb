@@ -18,7 +18,7 @@ class Channel < ActiveRecord::Base
   scope :actives, -> { where(active: true) }
 
   def self.get_channel(name)
-    Channel.where(name: name).first
+    Channel.find_by!(name: name)
   end
 
   def name_without_sign
