@@ -3,6 +3,7 @@ class SearchController < ApplicationController
   # GET /search.json
   def index
     if params[:q].present?
+      @keywords = params[:q]
       @search = Message.search_with(params[:q])
       @messages = @search.page(params[:page]).per(100)
       @channels = Channel.all
