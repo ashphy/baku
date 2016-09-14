@@ -3,6 +3,6 @@
     <span class="label label-info">TOPIC</span>
   <% end %>
   <span class="<%= 'text-info' if message.command == "TOPIC" %>">
-    <%= auto_link(message.text) %>
+    <%= message.text %>
   </span>
 </td>

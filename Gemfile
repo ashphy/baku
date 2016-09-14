@@ -32,7 +32,6 @@ gem 'ransack'
 gem 'devise'
 gem 'kaminari'
 gem 'groupdate'
-gem 'rails_autolink'
 
 # for IRC Logger
 gem 'cinch'
