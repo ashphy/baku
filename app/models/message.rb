@@ -11,7 +11,7 @@
 #  updated_at :datetime
 #
 
-class Message < ActiveRecord::Base
+class Message < ApplicationRecord
   belongs_to :channel
 
   validates :text, presence: true

@@ -11,7 +11,7 @@
 #  key        :string(255)
 #
 
-class Channel < ActiveRecord::Base
+class Channel < ApplicationRecord
   has_many :messages
   belongs_to :server
 

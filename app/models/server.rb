@@ -9,6 +9,6 @@
 #  updated_at :datetime
 #
 
-class Server < ActiveRecord::Base
+class Server < ApplicationRecord
   has_many :channels
 end

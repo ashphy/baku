@@ -1,4 +1,4 @@
-require File.expand_path('../boot', __FILE__)
+require_relative 'boot'
 
 require 'rails/all'
 
@@ -22,5 +22,7 @@ module Baku
     config.i18n.default_locale = :en
 
     config.assets.paths << "#{Rails}/vendor/assets/fonts"
+
+    ActiveSupport.halt_callback_chains_on_return_false = false
   end
 end
