@@ -16,9 +16,10 @@ ActiveRecord::Schema.define(version: 20160914134700) do
   create_table "channels", force: :cascade do |t|
     t.integer  "server_id",  limit: 4
     t.string   "name",       limit: 255
+    t.boolean  "active",                 default: true, null: false
+    t.boolean  "boolean",                default: true, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "active",                 default: true, null: false
     t.string   "key",        limit: 255
   end
 
