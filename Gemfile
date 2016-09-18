@@ -33,6 +33,10 @@ gem 'devise'
 gem 'kaminari'
 gem 'groupdate'
 
+source 'https://rails-assets.org' do
+  gem 'rails-assets-bootstrap'
+end
+
 # for IRC Logger
 gem 'cinch'
 gem 'daemon-spawn', require: 'daemon_spawn'
