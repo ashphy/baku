@@ -2,35 +2,27 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-body {
-  margin-top: 70px;
+@media (min-width: 768px) {
+  .sidebar {
+    position: fixed;
+    top: 50px;
+    bottom: 0;
+    left: 0;
+    z-index: 1000;
+    display: block;
+    padding: 20px;
+    overflow-x: hidden;
+    overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+  }
 }
 
-#log-header {
-  position: fixed;
-  top: 50px;
-  z-index: 1030;
-  width: 100%;
-  background-color: #FFFFFF;
-
-  .btn-group, .input-group {
-    margin-top: 25px;
-  }
-
-  .input-group {
-    width: 200px;
-  }
-
-  div {
-    float: left;
-    margin-left: 20px;
-    bottom: 0;
-  }
+.main {
+  padding: 20px;
 }
 
 #log {
   #message {
-    margin-top: 50px;
+    margin-top: 10px;
     padding-left: 20px;
   }
 
@@ -42,7 +34,7 @@ body {
 
     ul li {
       list-style-type: none;
-      width: 100%;
+      #width: 100%;
       height: 30px;
 
       a {
@@ -79,9 +71,4 @@ body {
 
 tr:target {
   background-color: #fff3c2 !important;
-}
-
-#channesl-list {
-  max-height: 500px;
-  overflow-y: scroll;
 }

@@ -2,57 +2,63 @@
   <%= "#{@channel.name} #{@year}-#{@month}-#{@day} | Baku" %>
 <% end %>
 
-<div id="log-header" class="row">
-  <div>
-    <h1>Daily Logs</h1>
-  </div>
-  <div class="btn-group">
-    <button type="button" class="btn btn-default"><%= @channel.name %></button>
-    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-      <span class="caret"></span>
-      <span class="sr-only">Toggle Dropdown</span>
-    </button>
-    <ul id="channesl-list" class="dropdown-menu" role="menu">
-      <% @channels.each do |channel| %>
-        <li class="<%= 'active' if @channel == channel %>">
-          <%= link_to channel.name, {:controller => "logs", :action => "index", :id => channel.name_without_sign} %>
-        </li>
-      <% end %>
-    </ul>
-  </div>
-  <div class="input-group date">
-    <input type="text" class="form-control" value="<%= "#{@year}-#{'%02d' % @month}-#{'%02d' % @day}" if @year.present? %>">
-    <span class="input-group-addon">
-      <i class="glyphicon glyphicon-th"></i>
-    </span>
-  </div>
-</div>
+<div class="row">
+  <div class="col-sm-3 col-md-2 sidebar">
+    <div id="log-header" class="row">
+      <div>
+        <h1>Logs</h1>
+      </div>
 
-<div id="log">
-  <div id="message">
-    <table class="table table-striped">
-      <thead>
-      <tr>
-        <th>Time</th>
-        <th>User</th>
-        <th>Text</th>
-      </tr>
-      </thead>
+      <!-- Channel Selector -->
+      <div class="dropdown" id="channel-selector">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="channel-name-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <%= @channel.name %>
+        </button>
+        <div id="channels-list" class="dropdown-menu" aria-labelledby="channel-name-dropdown">
+          <% @channels.each do |channel| %>
+            <%= link_to channel.name, {controller: 'logs', action: 'index', id: channel.name_without_sign}, {class: 'dropdown-item'} %>
+          <% end %>
+        </div>
+      </div>
 
-      <tbody>
-      <% if @messages.present? %>
-        <% @messages.each do |message| %>
-          <tr id="<%= message.id %>">
-            <td style="width: 60px"><%= link_to message.created_at.to_s(:irc_time), message %></td>
-            <td><%= message.user %></td>
-            <%= render partial: 'messages/message', locals: {message: message} %>
+      <!-- Date Selector -->
+      <div class="input-group date">
+        <input type="text" class="form-control" value="<%= "#{@year}-#{'%02d' % @month}-#{'%02d' % @day}" if @year.present? %>">
+        <span class="input-group-addon">
+          <%= fa_icon 'calendar-o' %>
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 main">
+    <div id="log">
+      <div id="message">
+        <table class="table table-striped">
+          <thead>
+          <tr>
+            <th>Time</th>
+            <th>User</th>
+            <th>Text</th>
           </tr>
-        <% end %>
-      <% else %>
-        <tr><td colspan="3">No logs recorded.</td></tr>
-      <% end %>
-      </tbody>
-    </table>
+          </thead>
+
+          <tbody>
+          <% if @messages.present? %>
+            <% @messages.each do |message| %>
+              <tr id="<%= message.id %>">
+                <td style="width: 60px"><%= link_to message.created_at.to_s(:irc_time), message %></td>
+                <td><%= message.user %></td>
+                <%= render partial: 'messages/message', locals: {message: message} %>
+              </tr>
+            <% end %>
+          <% else %>
+            <tr><td colspan="3">No logs recorded.</td></tr>
+          <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
 </div>
 

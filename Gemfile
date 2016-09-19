@@ -34,8 +34,10 @@ gem 'kaminari'
 gem 'groupdate'
 
 source 'https://rails-assets.org' do
-  gem 'rails-assets-bootstrap'
+  gem 'rails-assets-bootstrap', '4.0.0.alpha.4'
+  gem 'rails-assets-tether'
 end
+gem "font-awesome-rails"
 
 # for IRC Logger
 gem 'cinch'

@@ -4,22 +4,18 @@
 
 <p id="notice"><%= notice %></p>
 
-<div class="well well-lg">
-  <p>
-    <span class="glyphicon glyphicon-user"></span> <%= @message.user %>
-    <%= @message.channel.name %>
-  </p>
-
-  <p class="lead">
-    <%= @message.text %>
-  </p>
-
-  <p class="text-right">
-    <span class="glyphicon glyphicon-list"></span>
-    <span>
-      <%= link_to 'Look at this surroundings', @message.surrounding_log_link_param %>
-    </span>
-    <span class="glyphicon glyphicon-time"></span>
+<div class="card" style="width: 80%;">
+  <div class="card-block">
+    <h3 class="card-title">
+      <%= fa_icon 'user' %> <%= @message.user %>
+      <%= @message.channel.name %>
+    </h3>
+    <p class="card-text">
+      <%= @message.text %>
+    </p>
+    <%= link_to 'Show in context', @message.surrounding_log_link_param, { class: 'btn btn-primary' } %>
+  </div>
+  <div class="card-footer text-muted">
     <%= @message.created_at.to_s(:irc_detail) %>
-  </p>
+  </div>
 </div>
