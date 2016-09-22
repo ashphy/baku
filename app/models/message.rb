@@ -26,6 +26,13 @@ class Message < ApplicationRecord
   scope :daily_log, -> (channel, date) { where(created_at: date.beginning_of_day..date.end_of_day).where(channel_id: channel.id) }
   scope :search_with, -> (query) { where(["match(text) against(? in boolean mode)", search_query(query)]) }
 
+  after_create do |message|
+    LogStat.find_or_create_by(
+      channel_id: message.channel.id,
+      date: message.created_at.to_date
+    )
+  end
+
   def self.search_query(query)
     q = query.gsub(/[[:cntrl:]]/, '')
     "*D+ #{q}" # Define AND search

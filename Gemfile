@@ -6,6 +6,7 @@ gem 'rails', '5.0.0.1'
 # Use Mysql as the database for Active Record
 
 gem 'mysql2'
+gem 'composite_primary_keys', '~> 9.0'
 
 # Use SCSS for stylesheets
 gem 'sass-rails'
@@ -43,6 +44,9 @@ gem "font-awesome-rails"
 gem 'cinch'
 gem 'daemon-spawn', require: 'daemon_spawn'
 gem 'settingslogic'
+
+# for admin tools
+gem 'awesome_print'
 
 group :development do
   gem 'meta_request'

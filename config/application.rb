@@ -23,6 +23,8 @@ module Baku
 
     config.assets.paths << "#{Rails}/vendor/assets/fonts"
 
+    config.colorize_logging = false
+
     ActiveSupport.halt_callback_chains_on_return_false = false
   end
 end

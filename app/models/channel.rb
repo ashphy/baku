@@ -5,14 +5,16 @@
 #  id         :integer          not null, primary key
 #  server_id  :integer
 #  name       :string(255)
+#  active     :boolean          default(TRUE), not null
+#  boolean    :boolean          default(TRUE), not null
 #  created_at :datetime
 #  updated_at :datetime
-#  active     :boolean          default(TRUE), not null
 #  key        :string(255)
 #
 
 class Channel < ApplicationRecord
   has_many :messages
+  has_many :log_stats
   belongs_to :server
 
   scope :actives, -> { where(active: true) }
@@ -23,35 +25,6 @@ class Channel < ApplicationRecord
 
   def name_without_sign
     name.delete('#')
-  end
-
-  def years
-    logged_years = Message.where(channel_id: id).group_by_year(:created_at).count.select { |date, count| count > 0 }
-    logged_years.map do |date, count|
-      date.year
-    end
-  end
-
-  def months(year)
-    date = Time.zone.local(year.to_i, 1, 1)
-    range = date.beginning_of_year..date.end_of_year
-    logged_months = Message.where(channel_id: id).group_by_month(:created_at, range: range).count.select { |date, count| count > 0 }
-    logged_months.map do |date, count|
-      date.month
-    end
-  end
-
-  def days(year, month)
-    date = Time.zone.local(year.to_i, month.to_i, 1)
-    range = date.beginning_of_month..date.end_of_month
-    logged_days = Message.where(channel_id: id).group_by_day(:created_at, range: range).count.select { |date, count| count > 0 }
-    logged_days.map do |date, count|
-      date.day
-    end
-  end
-
-  def dates
-    messages.group_by_day(:created_at).count.select { |date, count| count > 0 }
   end
 
   def topics

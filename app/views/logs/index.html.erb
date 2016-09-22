@@ -1,5 +1,5 @@
 <% content_for :title do %>
-  <%= "#{@channel.name} #{@year}-#{@month}-#{@day} | Baku" %>
+  <%= "#{@channel.name} #{@date.year}-#{@date.month}-#{@date.day} | Baku" %>
 <% end %>
 
 <div class="row">
@@ -23,7 +23,7 @@
 
       <!-- Date Selector -->
       <div class="input-group date">
-        <input type="text" class="form-control" value="<%= "#{@year}-#{'%02d' % @month}-#{'%02d' % @day}" if @year.present? %>">
+        <input type="text" class="form-control" value="<%= "#{@date.year}-#{'%02d' % @date.month}-#{'%02d' % @date.day}" if @date.present? %>">
         <span class="input-group-addon">
           <%= fa_icon 'calendar-o' %>
         </span>
@@ -63,7 +63,7 @@
 </div>
 
 <%= javascript_tag do %>
-  var dates = <%= raw @dates.keys.map { |d| d.strftime('%Y-%m-%d') } if @dates.present?  %>
+  var dates = <%= raw @dates.map { |d| d.strftime('%Y-%m-%d') } if @dates.present?  %>
   $('#log-header .input-group.date').datepicker({
     format: 'yyyy-mm-dd',
     autoclose: true,
