@@ -5,4 +5,8 @@
     per_page:      number of items to fetch per page
     remote:        data-remote
 -%>
-<li class="disabled"><%= t('views.pagination.truncate').html_safe %></li>
+<li class="disabled page-item">
+  <a class="page-link">
+    <%= t('views.pagination.truncate').html_safe %>
+  </a>
+</li>

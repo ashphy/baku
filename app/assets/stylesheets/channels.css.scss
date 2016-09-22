@@ -1,25 +1,6 @@
 // Place all the styles related to the Channels controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-
-@media (min-width: 768px) {
-  .sidebar {
-    position: fixed;
-    top: 50px;
-    bottom: 0;
-    left: 0;
-    z-index: 1000;
-    display: block;
-    padding: 20px;
-    overflow-x: hidden;
-    overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
-  }
-}
-
-.main {
-  padding: 20px;
-}
-
 #log {
   #message {
     margin-top: 10px;
