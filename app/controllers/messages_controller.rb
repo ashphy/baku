@@ -4,7 +4,7 @@ class MessagesController < ApplicationController
   # GET /messages
   # GET /messages.json
   def index
-    @messages = Message.page(params[:page])
+    @messages = Message.includes(:channel).page(params[:page])
   end
 
   # GET /messages/1
@@ -65,7 +65,7 @@ class MessagesController < ApplicationController
 
     # Use callbacks to share common setup or constraints between actions.
     def set_message
-      @message = Message.find(params[:id])
+      @message = Message.includes(:channel).find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

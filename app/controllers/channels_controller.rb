@@ -5,7 +5,7 @@ class ChannelsController < ApplicationController
   # GET /channels
   # GET /channels.json
   def index
-    @channels = Channel.all.order(:name)
+    @channels = Channel.all.includes(:server).order(:name)
   end
 
   # GET /channels/1
