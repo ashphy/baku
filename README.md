@@ -39,6 +39,7 @@ RAILS_ENV=production bundle exec rails db:setup
 #### Configurations
 - Make config/bot.yml from bot.yml.sample
 - Make config/database.yml from database.yml.sample
+- Make config/ldap.yml from ldap.yml.sample
 
 Register the channel where you want to log on the web ui.
 Admin's account is located at db/seeds/production/users.rb

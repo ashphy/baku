@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # == Schema Information
 #
 # Table name: channels
@@ -32,6 +33,6 @@ class Channel < ApplicationRecord
   end
 
   def hasNoMessages?
-    messages.count == 0
+    messages.count.zero?
   end
 end

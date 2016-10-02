@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class CreateLogStats < ActiveRecord::Migration
   def change
     create_table :log_stats, id: false do |t|
@@ -6,6 +7,6 @@ class CreateLogStats < ActiveRecord::Migration
       t.timestamps
     end
 
-    add_index :log_stats, [ :channel_id, :date ], unique: true
+    add_index :log_stats, [:channel_id, :date], unique: true
   end
 end

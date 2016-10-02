@@ -29,8 +29,12 @@ gem 'turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.0'
 
-gem 'ransack'
+# Authentication and Authorization
 gem 'devise'
+gem 'devise_ldap_authenticatable'
+gem "pundit"
+
+gem 'ransack'
 gem 'kaminari'
 gem 'groupdate'
 

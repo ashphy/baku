@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # == Schema Information
 #
 # Table name: channels
@@ -14,6 +15,6 @@
 
 require 'rails_helper'
 
-describe Channel, :type => :model do
+describe Channel, type: :model do
   it { expect(subject).to belong_to(:server) }
 end

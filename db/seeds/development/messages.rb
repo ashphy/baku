@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 Message.create(channel_id: 1, user: 'test', command: 'PRIVMSG', text: 'てすとメッセージ')
 Message.create(channel_id: 1, user: 'test', command: 'NOTICE', text: 'てすとノーティス')
 Message.create(channel_id: 1, user: 'souseki', command: 'PRIVMSG', text: 'どうしても今日が満足院はできるだけこの希望なうだけがしてならりには遠慮申しないましょが、もう少しには思えたませますな。')

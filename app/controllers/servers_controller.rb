@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class ServersController < ApplicationController
   before_action :authenticate_user!
   before_action :set_server, only: [:show, :edit, :update, :destroy]
@@ -5,27 +6,32 @@ class ServersController < ApplicationController
   # GET /servers
   # GET /servers.json
   def index
+    authorize Server
     @servers = Server.all
   end
 
   # GET /servers/1
   # GET /servers/1.json
   def show
+    authorize @server
   end
 
   # GET /servers/new
   def new
     @server = Server.new
+    authorize @server
   end
 
   # GET /servers/1/edit
   def edit
+    authorize @server
   end
 
   # POST /servers
   # POST /servers.json
   def create
     @server = Server.new(server_params)
+    authorize @server
 
     respond_to do |format|
       if @server.save
@@ -41,6 +47,7 @@ class ServersController < ApplicationController
   # PATCH/PUT /servers/1
   # PATCH/PUT /servers/1.json
   def update
+    authorize @server
     respond_to do |format|
       if @server.update(server_params)
         format.html { redirect_to @server, notice: 'Server was successfully updated.' }
@@ -55,6 +62,7 @@ class ServersController < ApplicationController
   # DELETE /servers/1
   # DELETE /servers/1.json
   def destroy
+    authorize @server
     @server.destroy
     respond_to do |format|
       format.html { redirect_to servers_url }
@@ -64,13 +72,13 @@ class ServersController < ApplicationController
 
   private
 
-    # Use callbacks to share common setup or constraints between actions.
-    def set_server
-      @server = Server.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_server
+    @server = Server.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def server_params
-      params.require(:server).permit(:host, :encoding)
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def server_params
+    params.require(:server).permit(:host, :encoding)
+  end
 end

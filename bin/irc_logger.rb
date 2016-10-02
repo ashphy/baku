@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
+# frozen_string_literal: true
 require File.expand_path('../../config/application', __FILE__)
 Rails.application.require_environment!
 
@@ -8,7 +9,7 @@ require_relative 'bot_settings'
 class BakuBot
   include Cinch::Plugin
 
-  set :prefix, lambda{ |m| Regexp.new('^' + Regexp.escape(m.bot.nick + ' '))}
+  set :prefix, ->(m) { Regexp.new('^' + Regexp.escape(m.bot.nick + ' ')) }
 
   listen_to :message, method: :save_message
   listen_to :topic,   method: :save_message
@@ -41,7 +42,7 @@ class BakuBot
     end
   end
 
-  listen_to :invite,  method: :on_invite
+  listen_to :invite, method: :on_invite
   def on_invite(m)
     Channel(m.channel).join
     ActiveRecord::Base.connection_pool.with_connection do
@@ -56,9 +57,7 @@ class BakuBot
 
   listen_to :leaving, method: :on_leaving
   def on_leaving(m, user)
-    if m.command == 'KICK' && user.nick == m.bot.nick
-      stop_recording(m)
-    end
+    stop_recording(m) if m.command == 'KICK' && user.nick == m.bot.nick
   end
 
   match /we can't have you/, method: :on_kick
@@ -71,9 +70,9 @@ class BakuBot
   def on_operations(m, user)
     if user == 'me'
       m.channel.op(m.user)
-    elsif ['all', 'everyone', 'us'].include?(user)
+    elsif %w(all everyone us).include?(user)
       m.channel.users.each do |u, modes|
-        m.channel.op(u) unless modes.include?("o")
+        m.channel.op(u) unless modes.include?('o')
       end
     else
       m.channel.op(user)
@@ -85,7 +84,7 @@ class BakuBot
     if query.present?
       ActiveRecord::Base.connection_pool.with_connection do
         result = channel(m).messages.search_with(query).limit(10)
-        if result.length == 0
+        if result.length.zero?
           m.channel.notice 'No logs found'
         else
           result.each do |message|
@@ -140,7 +139,7 @@ class IRCLogger
         c.nick   = BotSettings.nick
         c.channels = server.channels.actives.map { |c| c.key? ? "#{c.name} #{c.key}" : c.name }
         c.encoding = server.encoding
-        c.plugins.plugins  = [BakuBot]
+        c.plugins.plugins = [BakuBot]
       end
     end
     bot.start
@@ -149,7 +148,7 @@ end
 
 # Bot Daemon
 class ResqueWorkerDaemon < DaemonSpawn::Base
-  def start(args)
+  def start(_args)
     ActiveRecord::Base.connection_pool.with_connection do
       Server.all.find_each do |server|
         @irc_logger = IRCLogger.new(server)

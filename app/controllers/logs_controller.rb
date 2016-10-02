@@ -1,20 +1,18 @@
+# frozen_string_literal: true
 class LogsController < ApplicationController
-
   # GET /logs
   # GET /logs.json
   def index
-    @channels = Channel.all.order(:name)
+    @channels = policy_scope(Channel).all.order(:name)
 
-    if params[:id].present?
-      @channel = @channels.get_channel("##{params[:id]}")
-    else
-      @channel = @channels.first!
-    end
+    @channel = if params[:id].present?
+                 @channels.get_channel("##{params[:id]}")
+               else
+                 @channels.first!
+               end
 
     stats = @channel.log_stats
-    if stats.count == 0
-      fail ActiveRecord::RecordNotFound
-    end
+    raise ActiveRecord::RecordNotFound if stats.count.zero?
 
     # find latest recorded date
     if params[:day].present?
