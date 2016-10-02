@@ -137,7 +137,7 @@ class IRCLogger
       configure do |c|
         c.server = server.host
         c.nick   = BotSettings.nick
-        c.channels = server.channels.actives.map { |c| c.key? ? "#{c.name} #{c.key}" : c.name }
+        c.channels = server.channels.actives.map { |ch| ch.key? ? "#{ch.name} #{ch.key}" : ch.name }
         c.encoding = server.encoding
         c.plugins.plugins = [BakuBot]
       end
