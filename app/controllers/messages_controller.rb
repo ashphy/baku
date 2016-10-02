@@ -1,30 +1,36 @@
+# frozen_string_literal: true
 class MessagesController < ApplicationController
   before_action :set_message, only: [:show, :edit, :update, :destroy]
 
   # GET /messages
   # GET /messages.json
   def index
+    authorize Message
     @messages = Message.includes(:channel).page(params[:page])
   end
 
   # GET /messages/1
   # GET /messages/1.json
   def show
+    authorize @message
   end
 
   # GET /messages/new
   def new
     @message = Message.new
+    authorize @message
   end
 
   # GET /messages/1/edit
   def edit
+    authorize @message
   end
 
   # POST /messages
   # POST /messages.json
   def create
     @message = Message.new(message_params)
+    authorize @message
 
     respond_to do |format|
       if @message.save
@@ -40,6 +46,7 @@ class MessagesController < ApplicationController
   # PATCH/PUT /messages/1
   # PATCH/PUT /messages/1.json
   def update
+    authorize @message
     respond_to do |format|
       if @message.update(message_params)
         format.html { redirect_to @message, notice: 'Message was successfully updated.' }
@@ -54,6 +61,7 @@ class MessagesController < ApplicationController
   # DELETE /messages/1
   # DELETE /messages/1.json
   def destroy
+    authorize @message
     @message.destroy
     respond_to do |format|
       format.html { redirect_to messages_url }
@@ -63,13 +71,13 @@ class MessagesController < ApplicationController
 
   private
 
-    # Use callbacks to share common setup or constraints between actions.
-    def set_message
-      @message = Message.includes(:channel).find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_message
+    @message = Message.includes(:channel).find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def message_params
-      params.require(:message).permit(:text, :user, :command)
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def message_params
+    params.require(:message).permit(:text, :user, :command)
+  end
 end

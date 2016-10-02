@@ -1,0 +1,40 @@
+<%= form_for(user) do |f| %>
+  <% if user.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+      <ul>
+      <% user.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field form-group row">
+    <%= f.label :username, { class: 'col-sm-2 col-form-label col-form-label' } %>
+    <div class="col-sm-10">
+      <%= f.text_field :username, { class: 'form-control' } %>
+    </div>
+  </div>
+
+  <div class="field form-group row">
+    <%= f.label :admin, { class: 'col-sm-2' } %>
+    <div class="col-sm-10">
+      <div class="form-check">
+        <label class="form-check-label">
+          <%= f.check_box :admin, { class: 'form-check-input' } %>
+          as administrative user
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <input id="page_set" name="user[password]" type="hidden" value=" " />
+
+  <div class="actions form-group row">
+    <div class="offset-sm-2 col-sm-10">
+      <%= f.submit class: 'btn btn-primary' %>
+    </div>
+  </div>
+<% end %>

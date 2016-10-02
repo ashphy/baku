@@ -1,10 +1,11 @@
+# frozen_string_literal: true
 class SearchController < ApplicationController
   # GET /search
   # GET /search.json
   def index
     if params[:q].present?
       @keywords = params[:q]
-      @search = Message.search_with(params[:q])
+      @search = policy_scope(Message).search_with(params[:q])
       @messages = @search.page(params[:page]).per(100)
       @channels = Channel.all
     end
@@ -12,8 +13,8 @@ class SearchController < ApplicationController
 
   private
 
-    # Use callbacks to share common setup or constraints between actions.
-    def set_message
-      @message = Message.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_message
+    @message = Message.find(params[:id])
+  end
 end

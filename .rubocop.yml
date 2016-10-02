@@ -1,10 +1,14 @@
 AllCops:
-  Includes:
+  Include:
     - Rakefile
+  Exclude:
     - config.ru
-  Excludes:
-    - db/**
-    - config/**
-    - script/**
-    - vendor/**
+    - 'db/**/*'
+    - 'script/*'
+    - 'script/**/'
+    - 'vendor/**/*'
     - !ruby/regexp /old_and_unused\.rb$/
+Rails:
+  Enabled: true
+Metrics/LineLength:
+  Max: 100

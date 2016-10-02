@@ -9,12 +9,3 @@
   If you want to log the channel, invite me 'baku_bot'.
   If not, please kick me from the channel.
 </p>
-
-<h3>I'm here...</h3>
-<div class="row">
-  <% Channel.actives.each do |channel| %>
-    <div class="pull-left channel">
-      <%= link_to channel.name, {:controller => "logs", :action => "index", :id => channel.name_without_sign} %>
-      <span class="badge"><%= channel.messages.count %></span></div>
-  <% end %>
-</div>

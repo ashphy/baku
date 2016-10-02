@@ -1,0 +1,72 @@
+<ol class="breadcrumb">
+  <li class="breadcrumb-item active"><%= link_to 'Users', users_path %></li>
+  <li class="breadcrumb-item active"><%= @user.username %></li>
+</ol>
+
+<h2>User Edit: <%= @user.username %></h2>
+<table class="table">
+  <tr>
+    <th>admin</th>
+    <td><%= @user.admin %></td>
+  </tr>
+  <tr>
+    <th>sign_in_count</th>
+    <td><%= @user.sign_in_count %></td>
+  </tr>
+  <tr>
+    <th>current_sign_in_at</th>
+    <td><%= @user.current_sign_in_at %></td>
+  </tr>
+  <tr>
+    <th>last_sign_in_at</th>
+    <td><%= @user.last_sign_in_at %></td>
+  </tr>
+  <tr>
+    <th>current_sign_in_ip</th>
+    <td><%= @user.current_sign_in_ip %></td>
+  </tr>
+  <tr>
+    <th>last_sign_in_ip</th>
+    <td><%= @user.last_sign_in_ip %></td>
+  </tr>
+</table>
+
+<hr />
+<h3>Permissions</h3>
+<%= form_for(@user) do |f| %>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Server</th>
+        <th>Channel</th>
+        <th>Read Permission</th>
+      </tr>
+    </thead>
+      <% @channels.each do |channel| %>
+        <% readable = @user.channels.include?(channel) %>
+        <tr>
+          <td><%= channel.server.host %></td>
+          <td><%= channel.name %></td>
+          <td>
+            <%= check_box 'channel_permissions', channel.name, { checked: readable } , true, false %>
+            <% if readable %>
+              <span class="tag tag-pill tag-success">
+                readable
+              </span>
+            <% else %>
+              <span class="tag tag-pill tag-danger">
+                can't read
+              </span>
+            <% end %>
+          </td>
+        <tr>
+      <% end %>
+    <tbody>
+
+    </tbody>
+  </table>
+
+  <div class="actions">
+    <%= f.submit class: 'btn btn-primary' %>
+  </div>
+<% end %>

@@ -1,16 +1,17 @@
+# frozen_string_literal: true
 Rails.application.routes.draw do
-
   devise_for :users
 
-  get '/about', :controller => 'pages', :action => 'about'
-  get '/logs/:id(/:year)(/:month)(/:day)', :controller => 'logs', :action => 'index'
+  get '/about', controller: 'pages', action: 'about'
+  get '/logs/:id(/:year)(/:month)(/:day)', controller: 'logs', action: 'index'
 
   resources :channels
   resources :servers
-  resources :messages, :only => [:index, :show, :delete]
-  resources :search, :only => [:index]
-  resources :logs, :only => [:index]
-  resources :topics, :only => [:show]
+  resources :messages, only: [:index, :show, :delete]
+  resources :search, only: [:index]
+  resources :logs, only: [:index]
+  resources :topics, only: [:show]
+  resources :users
 
   root 'search#index'
 

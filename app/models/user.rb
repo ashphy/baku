@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # == Schema Information
 #
 # Table name: users
@@ -15,14 +16,18 @@
 #  created_at             :datetime
 #  updated_at             :datetime
 #  username               :string(255)      not null
+#  admin                  :boolean          default(FALSE), not null
 #
 
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :rememberable, :trackable,
+  devise :ldap_authenticatable, :rememberable, :trackable,
          :validatable, :timeoutable,
          authentication_keys: [:username]
+
+  has_many :channel_permissions
+  has_many :channels, through: :channel_permissions
 
   def email_required?
     false
