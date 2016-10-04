@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161001152924) do
+ActiveRecord::Schema.define(version: 20161004152643) do
 
   create_table "channel_permissions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "user_id"
@@ -40,7 +40,7 @@ ActiveRecord::Schema.define(version: 20161001152924) do
     t.index ["channel_id", "date"], name: "index_log_stats_on_channel_id_and_date", unique: true, using: :btree
   end
 
-  create_table "messages", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "messages", force: :cascade, options: "ENGINE=Mroonga DEFAULT CHARSET=utf8" do |t|
     t.integer  "channel_id"
     t.string   "text",       limit: 512
     t.string   "user",       limit: 20,  null: false
@@ -74,6 +74,7 @@ ActiveRecord::Schema.define(version: 20161001152924) do
     t.datetime "updated_at"
     t.string   "username",                               null: false
     t.boolean  "admin",                  default: false, null: false
+    t.string   "remember_token"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
     t.index ["username"], name: "index_users_on_username", unique: true, using: :btree
   end

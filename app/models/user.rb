@@ -17,6 +17,7 @@
 #  updated_at             :datetime
 #  username               :string(255)      not null
 #  admin                  :boolean          default(FALSE), not null
+#  remember_token         :string(255)
 #
 
 class User < ApplicationRecord
