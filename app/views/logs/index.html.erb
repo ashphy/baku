@@ -47,8 +47,8 @@
           <% if @messages.present? %>
             <% @messages.each do |message| %>
               <tr id="<%= message.id %>">
-                <td style="width: 60px"><%= link_to message.created_at.to_s(:irc_time), message %></td>
-                <td><%= message.user %></td>
+                <td class="date" style="width: 60px"><%= link_to message.created_at.to_s(:irc_time), message %></td>
+                <td class="user"><%= message.user %></td>
                 <%= render partial: 'messages/message', locals: {message: message} %>
               </tr>
             <% end %>
