@@ -8,8 +8,13 @@ class LogsController < ApplicationController
     @channel = if params[:id].present?
                  @channels.get_channel("##{params[:id]}")
                else
-                 @channels.first!
+                 @channels.first
                end
+
+    unless @channel
+      render :no_channel
+      return
+    end
 
     stats = @channel.log_stats
     raise ActiveRecord::RecordNotFound if stats.count.zero?
