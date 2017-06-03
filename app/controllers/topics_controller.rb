@@ -1,4 +1,6 @@
 # frozen_string_literal: true
+
+# Topic histories
 class TopicsController < ApplicationController
   # GET /topics/:id
   # GET /logs/:id.json

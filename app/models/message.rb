@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: messages
@@ -12,6 +13,7 @@
 #  updated_at :datetime
 #
 
+# IRC Messages
 class Message < ApplicationRecord
   belongs_to :channel
 
@@ -22,10 +24,10 @@ class Message < ApplicationRecord
   validates :user, length: { maximum: 20 }
 
   validates :command, presence: true
-  validates :command, inclusion: %w(PRIVMSG NOTICE TOPIC)
+  validates :command, inclusion: %w[PRIVMSG NOTICE TOPIC]
 
-  scope :daily_log, -> (channel, date) { where(created_at: date.beginning_of_day..date.end_of_day).where(channel_id: channel.id) }
-  scope :search_with, -> (query) { where(['match(text) against(? in boolean mode)', search_query(query)]) }
+  scope :daily_log, ->(channel, date) { where(created_at: date.beginning_of_day..date.end_of_day).where(channel_id: channel.id) }
+  scope :search_with, ->(query) { where(['match(text) against(? in boolean mode)', search_query(query)]) }
 
   after_create do |message|
     LogStat.find_or_create_by(

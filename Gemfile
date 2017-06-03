@@ -1,12 +1,14 @@
+# frozen_string_literal: true
+
 source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '5.0.0.1'
+gem 'rails', '5.0.1'
 
 # Use Mysql as the database for Active Record
 
-gem 'mysql2'
 gem 'composite_primary_keys', '~> 9.0'
+gem 'mysql2'
 
 # Use SCSS for stylesheets
 gem 'sass-rails'
@@ -32,17 +34,17 @@ gem 'jbuilder', '~> 2.0'
 # Authentication and Authorization
 gem 'devise'
 gem 'devise_ldap_authenticatable'
-gem "pundit"
+gem 'pundit'
 
-gem 'ransack'
-gem 'kaminari'
 gem 'groupdate'
+gem 'kaminari'
+gem 'ransack'
 
 source 'https://rails-assets.org' do
   gem 'rails-assets-bootstrap', '4.0.0.alpha.4'
   gem 'rails-assets-tether'
 end
-gem "font-awesome-rails"
+gem 'font-awesome-rails'
 
 # for IRC Logger
 gem 'cinch'
@@ -53,12 +55,12 @@ gem 'settingslogic'
 gem 'awesome_print'
 
 group :development do
-  gem 'meta_request'
-  gem 'rubocop', require: false
   gem 'annotate'
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'bullet'
+  gem 'meta_request'
+  gem 'rubocop', require: false
 end
 
 group :doc do
@@ -67,9 +69,9 @@ group :doc do
 end
 
 group :test do
-  gem 'rspec-rails'
-  gem 'rails-controller-testing'
   gem 'database_cleaner'
   gem 'factory_girl_rails'
+  gem 'rails-controller-testing'
+  gem 'rspec-rails'
   gem 'shoulda-matchers'
 end

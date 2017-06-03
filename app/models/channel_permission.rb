@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: channel_permissions
@@ -10,6 +11,7 @@
 #  updated_at :datetime         not null
 #
 
+# Permissions for reading channel logs
 class ChannelPermission < ApplicationRecord
   belongs_to :user
   belongs_to :channel

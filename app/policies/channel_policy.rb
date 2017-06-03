@@ -1,4 +1,6 @@
 # frozen_string_literal: true
+
+# Channel Policy
 class ChannelPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve

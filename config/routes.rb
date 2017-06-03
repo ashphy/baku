@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 Rails.application.routes.draw do
   devise_for :users
 
@@ -7,7 +8,7 @@ Rails.application.routes.draw do
 
   resources :channels
   resources :servers
-  resources :messages, only: [:index, :show, :delete]
+  resources :messages, only: %i[index show delete]
   resources :search, only: [:index]
   resources :logs, only: [:index]
   resources :topics, only: [:show]

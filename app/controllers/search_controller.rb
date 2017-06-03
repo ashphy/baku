@@ -1,14 +1,16 @@
 # frozen_string_literal: true
+
+# Log Search
 class SearchController < ApplicationController
   # GET /search
   # GET /search.json
   def index
-    if params[:q].present?
-      @keywords = params[:q]
-      @search = policy_scope(Message).search_with(params[:q])
-      @messages = @search.page(params[:page]).per(100)
-      @channels = Channel.all
-    end
+    return if params[:q].present?
+
+    @keywords = params[:q]
+    @search = policy_scope(Message).search_with(params[:q])
+    @messages = @search.page(params[:page]).per(100)
+    @channels = Channel.all
   end
 
   private

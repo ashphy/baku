@@ -21,7 +21,7 @@ ActiveRecord::Schema.define(version: 20161004152643) do
     t.index ["user_id"], name: "index_channel_permissions_on_user_id", using: :btree
   end
 
-  create_table "channels", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "channels", force: :cascade, options: "ENGINE=Mroonga DEFAULT CHARSET=utf8" do |t|
     t.integer  "server_id"
     t.string   "name"
     t.boolean  "active",     default: true, null: false
@@ -47,13 +47,12 @@ ActiveRecord::Schema.define(version: 20161004152643) do
     t.string   "command"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.index ["channel_id", "created_at"], name: "index_messages_on_channel_id_and_created_at", using: :btree
     t.index ["channel_id"], name: "index_messages_on_channel_id", using: :btree
     t.index ["created_at"], name: "index_messages_on_created_at", using: :btree
     t.index ["text"], name: "index_messages_on_text", type: :fulltext
   end
 
-  create_table "servers", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "servers", force: :cascade, options: "ENGINE=Mroonga DEFAULT CHARSET=utf8" do |t|
     t.string   "host"
     t.string   "encoding"
     t.datetime "created_at"

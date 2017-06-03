@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: servers
@@ -10,6 +11,7 @@
 #  updated_at :datetime
 #
 
+# IRC Server
 class Server < ApplicationRecord
   has_many :channels
 end

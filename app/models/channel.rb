@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: channels
@@ -13,6 +14,7 @@
 #  key        :string(255)
 #
 
+# IRC Channel
 class Channel < ApplicationRecord
   has_many :messages
   has_many :log_stats
@@ -32,7 +34,7 @@ class Channel < ApplicationRecord
     Message.where(channel_id: id).where(command: 'TOPIC')
   end
 
-  def hasNoMessages?
+  def no_messages?
     messages.count.zero?
   end
 end

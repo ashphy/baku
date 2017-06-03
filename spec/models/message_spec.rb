@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: messages
@@ -18,7 +19,9 @@ describe Message, type: :model do
   let(:user) { 'test' }
   let(:text) { 'text' }
   let(:command) { 'PRIVMSG' }
-  let(:message) { Message.new(user: user, channel: create(:channel), text: text, command: command) }
+  let(:message) do
+    Message.new(user: user, channel: create(:channel), text: text, command: command)
+  end
 
   it 'PRIVMSG should save' do
     expect(message.save).to be_truthy

@@ -1,4 +1,6 @@
 # frozen_string_literal: true
+
+# Viewing IRC logs
 class LogsController < ApplicationController
   # GET /logs
   # GET /logs.json
@@ -20,18 +22,11 @@ class LogsController < ApplicationController
     raise ActiveRecord::RecordNotFound if stats.count.zero?
 
     # find latest recorded date
-    if params[:day].present?
-      @date = Date.new(params[:year].to_i, params[:month].to_i, params[:day].to_i)
-    elsif params[:month].present?
-      base = Time.zone.local(params[:year].to_i)
-      range = base.beginning_of_year..base.end_of_year
-      @date = stats.where(date: range).last
-    elsif params[:year].present?
-      @date = stats.last.date
-    else
-      @date = stats.last.date
-    end
-
+    @date = stats.last_in_date(
+      params[:year]&.to_i,
+      params[:month]&.to_i,
+      params[:day]&.to_i
+    )
     @dates = stats.pluck(:date)
     @messages = Message.daily_log(@channel, @date)
   end
