@@ -38,7 +38,6 @@ gem 'pundit'
 
 gem 'groupdate'
 gem 'kaminari'
-gem 'ransack'
 
 source 'https://rails-assets.org' do
   gem 'rails-assets-bootstrap', '4.0.0.alpha.4'

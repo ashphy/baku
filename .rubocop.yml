@@ -31,3 +31,5 @@ Style/FileName:
 Style/Documentation:
   Exclude:
     - 'app/policies/*'
+Style/Lambda:
+  EnforcedStyle: literal

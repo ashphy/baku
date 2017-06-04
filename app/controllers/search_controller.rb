@@ -5,11 +5,27 @@ class SearchController < ApplicationController
   # GET /search
   # GET /search.json
   def index
-    return if params[:q].present?
+    return if params[:q].blank?
 
     @keywords = params[:q]
-    @search = policy_scope(Message).search_with(params[:q])
-    @messages = @search.page(params[:page]).per(100)
+
+    @order = case params[:order]
+             when 'created_at', 'channel_id', 'user', 'text'
+               params[:order].to_sym
+             else
+               :created_at
+             end
+    @direction = case params[:direction]
+                 when 'desc', 'asc'
+                   params[:direction].to_sym
+                 else
+                   :desc
+                 end
+
+    logger.info("@@@ #{@order}, #{@direction}")
+    @search = policy_scope(Message)
+              .search_with(params[:q], @order, @direction)
+    @messages = @search.page(params[:page]).per(10)
     @channels = Channel.all
   end
 

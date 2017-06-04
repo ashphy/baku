@@ -31,10 +31,18 @@
   <table class="table">
     <thead>
       <tr>
-        <th>Date</th>
-        <th>Channel</th>
-        <th>User</th>
-        <th>Text</th>
+        <th>
+          <%= sortable_header('created_at', 'Date', @keywords, @order, @direction) %>
+        </th>
+        <th>
+          <%= sortable_header('channel_id', 'Channel', @keywords, @order, @direction) %>
+        </th>
+        <th>
+          <%= sortable_header('user', 'User', @keywords, @order, @direction) %>
+        </th>
+        <th>
+          <%= sortable_header('text', 'Text', @keywords, @order, @direction) %>
+        </th>
       </tr>
     </thead>
 

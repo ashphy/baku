@@ -26,8 +26,16 @@ class Message < ApplicationRecord
   validates :command, presence: true
   validates :command, inclusion: %w[PRIVMSG NOTICE TOPIC]
 
-  scope :daily_log, ->(channel, date) { where(created_at: date.beginning_of_day..date.end_of_day).where(channel_id: channel.id) }
-  scope :search_with, ->(query) { where(['match(text) against(? in boolean mode)', search_query(query)]) }
+  scope :daily_log, ->(channel, date) {
+    where(created_at: date.beginning_of_day..date.end_of_day)
+      .where(channel_id: channel.id)
+  }
+  scope :search_with, ->(query, order = :created_at, direction = :desc) {
+    order_condition = {}
+    order_condition[order] = direction
+    where(['match(text) against(? in boolean mode)', search_query(query)])
+      .order(order_condition)
+  }
 
   after_create do |message|
     LogStat.find_or_create_by(
