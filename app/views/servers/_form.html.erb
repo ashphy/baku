@@ -11,15 +11,13 @@
     </div>
   <% end %>
 
-  <div class="field">
+  <div class="form-group">
     <%= f.label :host %><br>
-    <%= f.text_field :host %>
+    <%= f.text_field :host, placeholder: 'IRC Server Address', class: 'form-control' %>
   </div>
-  <div class="field">
+  <div class="form-group">
     <%= f.label :encoding %><br>
-    <%= f.text_field :encoding %>
+    <%= f.select :encoding, Encoding.list, {}, class: 'form-control' %>
   </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+  <%= f.button class: 'btn btn-default' %>
 <% end %>

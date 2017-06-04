@@ -11,23 +11,23 @@
     </div>
   <% end %>
 
-  <div class="field">
+  <div class="form-group">
     <%= f.label :name %><br>
-    <%= f.text_field :name %>
+    <%= f.text_field :name, class: 'form-control' %>
   </div>
-  <div class="field">
+  <div class="form-group">
     <%= f.label :key %><br>
-    <%= f.text_field :key %>
+    <%= f.text_field :key, class: 'form-control' %>
   </div>
-  <div class="field">
+  <div class="form-group">
     <%= f.label :server_id %><br>
-    <%= f.collection_select :server_id, Server.all, :id, :host %>
+    <%= f.collection_select :server_id, Server.all, :id, :host, {}, { class: 'form-control' } %>
   </div>
-  <div class="field">
-    <%= f.label :active %><br>
-    <%= f.check_box :active %>
+  <div class="checkbox">
+    <%= f.label :active do %>
+      Active
+      <%= f.check_box :active %>
+    <% end %>
   </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+  <%= f.button class: 'btn btn-default' %>
 <% end %>
