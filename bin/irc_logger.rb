@@ -29,7 +29,7 @@ class BakuBot
 
   listen_to :channel, method: :on_notice
   def on_notice(m)
-    return if m.command == 'NOTICE'
+    return unless m.command == 'NOTICE'
 
     ActiveRecord::Base.connection_pool.with_connection do
       channel = channel(m)
