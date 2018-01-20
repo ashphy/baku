@@ -26,6 +26,8 @@ class SearchController < ApplicationController
     @search = policy_scope(Message)
               .search_with(params[:q], @order, @direction)
     @messages = @search.page(params[:page]).per(10)
+    Rails.logger.info "@@@@@ Pages #{@messages.length}"
+    Rails.logger.info "@@@@@ Pages #{@search.page(params[:page]).per(10).to_sql}"
     @channels = Channel.all
   end
 

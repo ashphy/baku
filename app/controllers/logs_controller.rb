@@ -19,6 +19,7 @@ class LogsController < ApplicationController
     end
 
     stats = @channel.log_stats
+    Rails.logger.info "@@@@ #{@channel.id}, #{stats.count.zero?}"
     raise ActiveRecord::RecordNotFound if stats.count.zero?
 
     # find latest recorded date

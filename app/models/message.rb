@@ -31,9 +31,11 @@ class Message < ApplicationRecord
       .where(channel_id: channel.id)
   }
   scope :search_with, ->(query, order = :created_at, direction = :desc) {
+    keywords, conditions = parse_query(query)
     order_condition = {}
     order_condition[order] = direction
-    where(['match(text) against(? in boolean mode)', search_query(query)])
+    where(['match(text) against(? in boolean mode)', search_query(keywords.join(' '))])
+      .where(conditions)
       .order(order_condition)
   }
 
@@ -47,6 +49,27 @@ class Message < ApplicationRecord
   def self.search_query(query)
     q = query.gsub(/[[:cntrl:]]/, '')
     "*D+ #{q}" # Define AND search
+  end
+
+  def self.parse_query(query)
+    keywords = []
+    channels = []
+
+    queries = query.split(' ')
+    queries.each do |query|
+      if query.match?(/^#/)
+        if Channel.all.pluck(:name).include?(query)
+          channels << Channel.find_by(name: query)
+        end
+      else
+        keywords << query
+      end
+    end
+
+    conditions = {}
+    conditions['channel'] = channels if channels.present?
+
+    [keywords, conditions]
   end
 
   def surrounding_log_link_param
